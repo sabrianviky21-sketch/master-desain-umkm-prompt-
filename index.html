@@ -238,7 +238,7 @@ input::placeholder{color:#1e2e45;}
     <div class="fld"><div class="fl">Instagram (@)</div><input type="text" id="ig" placeholder="@brand.id"></div>
     <div class="fld"><div class="fl">TikTok (@) <span class="flo">(opsional)</span></div><input type="text" id="tt" placeholder="@brand.tiktok"></div>
     <div class="fld"><div class="fl">Warna Utama / Latar</div>
-      <select id="colorMain">
+      <select id="colorMain" onchange="toggleCustomColor('colorMain','colorMainCustom')">
         <option value="">— Pilih Warna —</option>
         <option value="" disabled>── PUTIH & TERANG</option>
         <option value="Pure White">⚪ Putih Bersih</option>
@@ -268,10 +268,12 @@ input::placeholder{color:#1e2e45;}
         <option value="Espresso">🟤 Espresso</option>
         <option value="Golden Yellow">🟡 Kuning Emas</option>
         <option value="Bright Yellow">🟡 Kuning Cerah</option>
+        <option value="custom">✏️ Ketik Warna Sendiri...</option>
       </select>
+      <input type="text" id="colorMainCustom" placeholder="Contoh: Merah Marun, Dark Teal, #FF5733..." style="display:none;margin-top:8px">
     </div>
     <div class="fld"><div class="fl">Warna Aksen</div>
-      <select id="colorAccent">
+      <select id="colorAccent" onchange="toggleCustomColor('colorAccent','colorAccentCustom')">
         <option value="">— Pilih Warna —</option>
         <option value="" disabled>── TERANG</option>
         <option value="Pure White">⚪ Putih</option>
@@ -286,7 +288,9 @@ input::placeholder{color:#1e2e45;}
         <option value="Electric Blue">🔵 Biru Electric</option>
         <option value="Hot Pink">🩷 Pink</option>
         <option value="Charcoal Black">⚫ Hitam</option>
+        <option value="custom">✏️ Ketik Warna Sendiri...</option>
       </select>
+      <input type="text" id="colorAccentCustom" placeholder="Contoh: Gold Metalik, Lime Green, #BAFF39..." style="display:none;margin-top:8px">
     </div>
 
     <!-- STEP 4: GAYA FIELDS -->
@@ -295,9 +299,13 @@ input::placeholder{color:#1e2e45;}
     <!-- G1 -->
     <div id="s1" class="dsec on fw"><div class="fg">
       <div class="fld fw"><div class="fl">Nama Menu / Produk</div><input type="text" id="g1_menu" placeholder="Contoh: Seblak Ceker Mercon / Kopi Susu Aren..."></div>
-      <div class="fld"><div class="fl">Judul Utama</div><input type="text" id="g1_judul" placeholder="PROMO SPESIAL HARI INI!"></div>
-      <div class="fld"><div class="fl">Teks Pendukung</div><input type="text" id="g1_sub" placeholder="Rasanya bikin nagih, wajib dicoba!"></div>
-      <div class="fld"><div class="fl">Harga</div><input type="text" id="g1_harga" placeholder="Rp 15.000 / Porsi"></div>
+      <div class="fld"><div class="fl">Judul Utama / Headline</div><input type="text" id="g1_judul" placeholder="PROMO SPESIAL HARI INI!"></div>
+      <div class="fld"><div class="fl">Teks Pendukung / Slogan</div><input type="text" id="g1_sub" placeholder="Rasanya bikin nagih, wajib dicoba!"></div>
+      <div class="fld"><div class="fl">Harga Normal</div><input type="text" id="g1_harga" placeholder="Rp 15.000 / Porsi"></div>
+      <div class="fld"><div class="fl">Harga Coret <span class="flo">(opsional)</span></div><input type="text" id="g1_harga_coret" placeholder="Rp 25.000"></div>
+      <div class="fld"><div class="fl">Keunggulan 1</div><input type="text" id="g1_b1" placeholder="Contoh: Bahan Segar Setiap Hari"></div>
+      <div class="fld"><div class="fl">Keunggulan 2</div><input type="text" id="g1_b2" placeholder="Contoh: Tanpa Pengawet"></div>
+      <div class="fld"><div class="fl">Keunggulan 3 <span class="flo">(opsional)</span></div><input type="text" id="g1_b3" placeholder="Contoh: Porsi Generous"></div>
       <div class="fld"><div class="fl">Tombol CTA</div><input type="text" id="g1_cta" placeholder="PESAN SEKARANG"></div>
       <div class="fld fw"><div class="fl">Foto Referensi <span class="flo">(opsional)</span></div>
         <div class="upzone"><input type="file" id="g1_foto" class="hf" accept="image/*" onchange="setLabel(this,'g1_lbl')">
@@ -385,6 +393,23 @@ input::placeholder{color:#1e2e45;}
 <script>
 
 
+function toggleCustomColor(selId, inputId){
+  const sel = document.getElementById(selId);
+  const inp = document.getElementById(inputId);
+  if(!inp) return;
+  inp.style.display = sel.value === 'custom' ? 'block' : 'none';
+  if(sel.value !== 'custom') inp.value = '';
+}
+function getColor(selId, inputId){
+  const sel = document.getElementById(selId);
+  if(!sel) return '';
+  if(sel.value === 'custom'){
+    const inp = document.getElementById(inputId);
+    return inp ? inp.value.trim() : '';
+  }
+  return sel.value;
+}
+
 function getSz(){
   const r=document.querySelector('input[name="sz"]:checked');
   if(!r)return{dim:'1080x1350',ratio:'4:5',label:'Instagram Feed'};
@@ -439,7 +464,13 @@ function autoFill(){
   const isEdu=/kursus|les|bimbel|sekolah|kampus|universitas|pelatihan|training|workshop/.test(b);
 
   function fi(id,val){const e=document.getElementById(id);if(e&&!e.value.trim())e.value=val;}
-  function fc(id,val){const e=document.getElementById(id);if(e&&!e.value)e.value=val;}
+  function fc(id,val){
+    const e=document.getElementById(id);
+    if(!e||e.value)return;
+    // Check if val exists as option
+    const opts=Array.from(e.options||[]).map(o=>o.value);
+    if(opts.includes(val)) e.value=val;
+  }
 
   let d={};
   if(isFood||isDrink){
@@ -516,7 +547,7 @@ function autoFill(){
       g6l1:'Welcome To',g6l2:brand.toUpperCase(),g6badge:'Services',g6hero:'owner atau tim profesional '+brand,g6card:'portfolio terbaik atau testimoni pelanggan'};
   }
 
-  if(gaya==='1'){fi('g1_menu',d.menu);fi('g1_judul',d.judul);fi('g1_sub',d.sub);fi('g1_harga',d.harga);fi('g1_cta',d.cta);}
+  if(gaya==='1'){fi('g1_menu',d.menu);fi('g1_judul',d.judul);fi('g1_sub',d.sub);fi('g1_harga',d.harga);fi('g1_b1',d.b1);fi('g1_b2',d.b2);fi('g1_b3',d.b3||'');fi('g1_cta',d.cta);}
 
   else if(gaya==='2'){fi('g3_hl',d.judul);fi('g3_sub',d.sub);fi('g3_harga',d.harga);fi('g3_cta',d.cta);fi('g3_visual',d.visual);}
   else if(gaya==='3'){fi('g4_l1',d.menu||brand.toUpperCase());fi('g4_l2','JUARA');fi('g4_sub',d.sub);fi('g4_harga',d.harga);fi('g4_cta',d.cta);}
@@ -530,8 +561,8 @@ function generate(){
   const sz=getSz();
   const brand=g('brand')||'[NAMA BRAND]';
   const wa=g('wa');const ig=g('ig');const tt=g('tt');
-  const cm=g('colorMain')||'Sesuai produk';
-  const ca=g('colorAccent')||'Oranye';
+  const cm=getColor('colorMain','colorMainCustom')||'Sesuai produk';
+  const ca=getColor('colorAccent','colorAccentCustom')||'Oranye';
   let prompt='',label='';
 
   if(gaya==='1'){
@@ -540,9 +571,11 @@ function generate(){
     const judul=g('g1_judul')||'[JUDUL UTAMA]';
     const sub=g('g1_sub')||'[TEKS PENDUKUNG]';
     const harga=g('g1_harga')||'[HARGA]';
+    const hargaCoret=g('g1_harga_coret');
+    const b1=g('g1_b1');const b2=g('g1_b2');const b3=g('g1_b3');
     const cta=g('g1_cta')||'PESAN SEKARANG';
     const ref=hf('g1_foto')?'\nNote: Attached reference image — use ONLY as layout and feel guide, not as text copy guide.':'';
-    prompt='[NAMA BRAND : '+brand+']\n\n[NAMA MENU : '+menu+']\n\n[HARGA : '+harga+']\n\n[NOMOR WA : '+wa+']\n\n[JUDUL UTAMA : '+judul+']\n\n[TEKS PENDUKUNG : '+sub+']\n\n[TOMBOL KETERANGAN : '+cta+']\n\n[AKUN INSTAGRAM : '+ig+']\n\n[WARNA LATAR : '+cm+']\n\n[WARNA AKSEN : '+ca+']\n'+ref+'\nCreate a premium food promo poster in '+sz.ratio+' aspect ratio ('+sz.dim+' pixels) using the attached reference image only as a layout and feel guide, not as a text copy guide. Keep the same promotional energy and overall hierarchy, but make the final result feel more minimal, cleaner, and more breathable with clear negative space. Prioritize a polished Instagram-ready ad look that still feels bold and selling.\n\nUse [NAMA MENU] as the hero subject and make it appetizing, realistic, and strongly matched to the food type entered. The food must stay the main focus, but give it more room to breathe so the layout feels cleaner and less crowded. Use photo-realistic food photography style, dynamic plating, and rich texture. Keep the general reference logic: brand at top-left, main headline in the upper-left or upper-middle, price badge at top-right, hero food centered, product name large and readable near the lower-right, and supporting info placed neatly in the lower area.\n\nDesign direction:\n- bold rounded typography\n- thick white outline on key text\n- orange depth shadow or warm shadow effect\n- premium promo atmosphere\n- subtle smoke / steam / heat effect only where it supports the food\n- light scribble or hand-drawn accent lines, used sparingly\n- a few minimal floating food-themed decorative elements that match the menu, used sparingly\n- more negative space, while keeping it highly commercial\n- use fewer but larger typography elements instead of many small crowded elements\n- clean, modern, high-contrast, eye-catching social media poster\n\nBackground:\n- use [WARNA LATAR] as the base background tone\n- add a soft gradient, subtle motion texture, and delicate patterning\n- use [WARNA AKSEN] for highlights, badge accents, shadows, and small decorative details\n- maintain excellent readability for all text\n\nText and hierarchy rules:\n- [NAMA BRAND] appears at the top-left in a clean premium style\n- [JUDUL UTAMA] appears significantly larger, bolder, more attention-grabbing\n- [TEKS PENDUKUNG] sits naturally under or near the headline as a proper supporting line\n- [HARGA] appears inside a circular badge at the top-right, highly visible\n- [NAMA MENU] appears larger and visually stronger near the lower-right or lower-middle\n- [NOMOR WA] appears near the bottom with the official WhatsApp logo (authentic green-and-white)\n- [AKUN INSTAGRAM] appears with the official Instagram logo (authentic gradient)\n- [TOMBOL KETERANGAN] appears as a rounded integrated call-to-action element\n- if any placeholder is empty, omit that element completely\n\nBrand icon accuracy:\n- WhatsApp logo: authentic green and white\n- Instagram logo: authentic gradient\n- do not recolor social media logos\n\nQuality: sharp, detailed, premium, polished, commercial design. No extra random text, no watermark, no logo clutter. Make the aspect ratio '+sz.dim+' pixels.';
+    prompt='[NAMA BRAND : '+brand+']\n\n[NAMA MENU : '+menu+']\n\n[HARGA : '+harga+(hargaCoret?'\n[HARGA CORET : '+hargaCoret+']':'')+']\n\n[NOMOR WA : '+wa+']\n\n[JUDUL UTAMA : '+judul+']\n\n[TEKS PENDUKUNG : '+sub+']\n\n'+(b1?'[KEUNGGULAN 1 : '+b1+']\n\n':'')+(b2?'[KEUNGGULAN 2 : '+b2+']\n\n':'')+(b3?'[KEUNGGULAN 3 : '+b3+']\n\n':'')+'[TOMBOL KETERANGAN : '+cta+']\n\n[AKUN INSTAGRAM : '+ig+']\n\n[WARNA LATAR : '+cm+']\n\n[WARNA AKSEN : '+ca+']\n'+ref+'\nCreate a premium food promo poster in '+sz.ratio+' aspect ratio ('+sz.dim+' pixels) using the attached reference image only as a layout and feel guide, not as a text copy guide. Keep the same promotional energy and overall hierarchy, but make the final result feel more minimal, cleaner, and more breathable with clear negative space. Prioritize a polished Instagram-ready ad look that still feels bold and selling.\n\nUse [NAMA MENU] as the hero subject and make it appetizing, realistic, and strongly matched to the food type entered. The food must stay the main focus, but give it more room to breathe so the layout feels cleaner and less crowded. Use photo-realistic food photography style, dynamic plating, and rich texture. Keep the general reference logic: brand at top-left, main headline in the upper-left or upper-middle, price badge at top-right, hero food centered, product name large and readable near the lower-right, and supporting info placed neatly in the lower area.\n\nDesign direction:\n- bold rounded typography\n- thick white outline on key text\n- orange depth shadow or warm shadow effect\n- premium promo atmosphere\n- subtle smoke / steam / heat effect only where it supports the food\n- light scribble or hand-drawn accent lines, used sparingly\n- a few minimal floating food-themed decorative elements that match the menu, used sparingly\n- more negative space, while keeping it highly commercial\n- use fewer but larger typography elements instead of many small crowded elements\n- clean, modern, high-contrast, eye-catching social media poster\n\nBackground:\n- use [WARNA LATAR] as the base background tone\n- add a soft gradient, subtle motion texture, and delicate patterning\n- use [WARNA AKSEN] for highlights, badge accents, shadows, and small decorative details\n- maintain excellent readability for all text\n\nText and hierarchy rules:\n- [NAMA BRAND] appears at the top-left in a clean premium style\n- [JUDUL UTAMA] appears significantly larger, bolder, more attention-grabbing\n- [TEKS PENDUKUNG] sits naturally under or near the headline as a proper supporting line\n- [HARGA] appears inside a circular badge at the top-right, highly visible\n- [NAMA MENU] appears larger and visually stronger near the lower-right or lower-middle\n- [NOMOR WA] appears near the bottom with the official WhatsApp logo (authentic green-and-white)\n- [AKUN INSTAGRAM] appears with the official Instagram logo (authentic gradient)\n- [TOMBOL KETERANGAN] appears as a rounded integrated call-to-action element\n- if any placeholder is empty, omit that element completely\n\nBrand icon accuracy:\n- WhatsApp logo: authentic green and white\n- Instagram logo: authentic gradient\n- do not recolor social media logos\n\nQuality: sharp, detailed, premium, polished, commercial design. No extra random text, no watermark, no logo clutter. Make the aspect ratio '+sz.dim+' pixels.';
   }
   else if(gaya==='2'){
     label='Gaya 2 — Commercial Campaign';
