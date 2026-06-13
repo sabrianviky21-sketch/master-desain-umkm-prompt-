@@ -2,1156 +2,598 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Master Ad Generator Pro — AI Prompt Builder</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Gen UMKM Support — Gratis untuk UMKM Indonesia</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #07090f;
-  --surface: #0f1520;
-  --card: #151d2e;
-  --border: #1e2d47;
-  --border-light: #253654;
-  --text: #e8edf5;
-  --muted: #6b7fa0;
-  --accent: #4f7fff;
-  --accent2: #f59e0b;
-  --accent3: #8b5cf6;
-  --green: #10b981;
-  --red: #ef4444;
-  --v1: #4f7fff;
-  --v2: #f59e0b;
-  --v3: #8b5cf6;
-  --font: 'Plus Jakarta Sans', sans-serif;
-  --mono: 'Space Mono', monospace;
-  --radius: 10px;
-  --radius-lg: 16px;
+:root{
+  --bg:#07090f;--card:#0d1221;--border:rgba(255,255,255,0.06);
+  --b2:rgba(255,255,255,0.1);--b1:#2563eb;--blue:#3b82f6;--b3:#60a5fa;--b4:#bfdbfe;
+  --bdim:rgba(37,99,235,0.1);--green:#10b981;
+  --text:#f0f4ff;--muted:#8098c0;--muted2:#a0b4d8;--font:'Poppins',sans-serif;
 }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;padding-bottom:80px;max-width:100vw;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 50% at 15% 15%,rgba(37,99,235,0.07) 0%,transparent 60%),
+  radial-gradient(ellipse 50% 40% at 85% 80%,rgba(99,102,241,0.05) 0%,transparent 60%);}
+.nav{position:sticky;top:0;z-index:100;height:56px;background:rgba(7,9,15,0.92);
+  backdrop-filter:blur(20px);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;padding:0 24px;}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.nav-icon{width:32px;height:32px;background:linear-gradient(135deg,#1e3a8a,#3b82f6);
+  border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;
+  box-shadow:0 0 16px rgba(59,130,246,0.4);animation:pulse 3s ease-in-out infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 16px rgba(59,130,246,0.4);}50%{box-shadow:0 0 26px rgba(59,130,246,0.65);}}
+.nav-brand{font-size:17px;font-weight:800;}.nav-brand span{color:var(--b3);}
+.nav-sub{font-size:10px;color:var(--muted2);letter-spacing:1px;text-transform:uppercase;}
+.pill{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:600;border:1px solid;}
+.pg{background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.25);color:#10b981;}
+.hero{position:relative;z-index:1;text-align:center;padding:32px 16px 20px;}
+.hero-title{font-size:clamp(26px,5vw,40px);font-weight:800;letter-spacing:-1px;
+  background:linear-gradient(135deg,#fff 0%,#93c5fd 60%,#60a5fa 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px;}
+.hero-sub{font-size:14px;color:var(--muted2);line-height:1.7;max-width:460px;margin:0 auto;}
+.wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:0 16px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;
+  margin-bottom:16px;box-shadow:0 16px 40px rgba(0,0,0,0.4);}
+.chd{padding:16px 20px 14px;border-bottom:1px solid var(--border);
+  background:linear-gradient(180deg,rgba(37,99,235,0.04) 0%,transparent 100%);
+  display:flex;align-items:center;gap:10px;position:relative;}
+.chd::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(59,130,246,0.4),transparent);}
+.chd-ico{width:32px;height:32px;flex-shrink:0;background:var(--bdim);border:1px solid rgba(37,99,235,0.2);
+  border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;}
+.chd-t{font-size:15px;font-weight:700;}.chd-s{font-size:12px;color:var(--muted2);margin-top:2px;}
+.cbody{padding:18px 20px;}
+.sdiv{display:flex;align-items:center;gap:8px;margin:16px 0 11px;}
+.sdiv::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(37,99,235,0.25),transparent);}
+.snum{width:20px;height:20px;background:linear-gradient(135deg,#1e3a8a,#3b82f6);border-radius:5px;
+  font-size:9px;font-weight:700;color:white;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.slbl{font-size:11px;font-weight:700;color:var(--muted2);letter-spacing:1.5px;text-transform:uppercase;}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.fw{grid-column:span 2;}
+.fld{display:flex;flex-direction:column;gap:4px;}
+.fl{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.8px;text-transform:uppercase;}
+.flo{color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0;font-size:10px;}
+input[type="text"],select{width:100%;padding:11px 14px;background:rgba(255,255,255,0.03);
+  border:1px solid var(--b2);border-radius:9px;color:var(--text);font-family:var(--font);
+  font-size:14px;transition:all 0.2s;appearance:none;-webkit-appearance:none;outline:none;}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%238098c0' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 11px center;background-color:rgba(255,255,255,0.03);
+  padding-right:32px;cursor:pointer;color:var(--b4);font-weight:500;}
+select option{background:#0d1221;color:var(--text);}
+select option:disabled{color:var(--muted);}
+input[type="text"]:focus,select:focus{border-color:rgba(59,130,246,0.5);
+  background:rgba(59,130,246,0.04);box-shadow:0 0 0 3px rgba(59,130,246,0.08);}
+input::placeholder{color:#1e2e45;}
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* GAYA SELECTOR */
+.gaya-list{display:flex;flex-direction:column;gap:8px;}
+.gaya-opt input{display:none;}
+.gaya-lbl{display:flex;align-items:center;gap:12px;padding:14px 16px;
+  border:1px solid var(--b2);border-radius:11px;cursor:pointer;transition:all 0.18s;
+  background:rgba(255,255,255,0.015);}
+.gaya-opt input:checked+.gaya-lbl{border-color:var(--blue);background:var(--bdim);box-shadow:0 0 0 2px rgba(59,130,246,0.14);}
+.gaya-lbl:hover{border-color:rgba(59,130,246,0.3);}
+.gaya-num{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,0.06);
+  font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.gaya-opt input:checked+.gaya-lbl .gaya-num{background:var(--b1);}
+.gaya-info{flex:1;}
+.gaya-name{font-size:15px;font-weight:700;color:var(--muted2);}
+.gaya-opt input:checked+.gaya-lbl .gaya-name{color:var(--b3);}
+.gaya-desc{font-size:12px;color:var(--muted);margin-top:3px;}
+.rec{display:inline-block;background:linear-gradient(135deg,#f59e0b,#ef4444);color:white;
+  font-size:9px;font-weight:800;padding:1px 7px;border-radius:20px;margin-left:6px;vertical-align:middle;}
 
-body {
-  font-family: var(--font);
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  line-height: 1.6;
-}
+/* SIZE */
+.size-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.sz-opt input{display:none;}
+.sz-lbl{display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 6px;
+  border:1px solid var(--b2);border-radius:10px;cursor:pointer;transition:all 0.18s;background:rgba(255,255,255,0.015);}
+.sz-opt input:checked+.sz-lbl{border-color:var(--blue);background:var(--bdim);box-shadow:0 0 0 2px rgba(59,130,246,0.14);}
+.sz-lbl:hover{border-color:rgba(59,130,246,0.3);}
+.sz-ico{font-size:20px;}.sz-name{font-size:12px;font-weight:700;color:var(--muted2);}
+.sz-opt input:checked+.sz-lbl .sz-name{color:var(--b3);}
+.sz-dim{font-size:10px;color:var(--muted);}.sz-rec{font-size:10px;color:var(--green);font-weight:600;}
 
-/* HEADER */
-.header {
-  background: linear-gradient(135deg, #0a1628 0%, #0f1e3a 50%, #0a1628 100%);
-  border-bottom: 1px solid var(--border);
-  padding: 20px 0;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  backdrop-filter: blur(10px);
-}
-.header-inner {
-  max-width: 1100px;
-  margin: auto;
-  padding: 0 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.logo-icon {
-  width: 40px; height: 40px;
-  background: linear-gradient(135deg, var(--accent), var(--accent3));
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
-}
-.logo-text { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; }
-.logo-text span { color: var(--accent); }
-.header-badge {
-  background: rgba(79,127,255,0.12);
-  border: 1px solid rgba(79,127,255,0.3);
-  color: var(--accent);
-  font-size: 11px;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 20px;
-  letter-spacing: 1px;
-}
-.header-right { display: flex; align-items: center; gap: 10px; }
+/* DYNAMIC FIELDS */
+.dsec{display:none;}.dsec.on{display:contents;}
 
-/* HERO */
-.hero {
-  text-align: center;
-  padding: 48px 24px 32px;
-  max-width: 700px;
-  margin: auto;
-}
-.hero h1 {
-  font-size: clamp(26px, 4vw, 40px);
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -1px;
-  margin-bottom: 14px;
-  background: linear-gradient(135deg, #e8edf5 0%, #a0b4d8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.hero p {
-  color: var(--muted);
-  font-size: 15px;
-  line-height: 1.7;
-}
-.hero-tags {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 16px;
-}
-.hero-tag {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid var(--border-light);
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 600;
-  padding: 4px 12px;
-  border-radius: 20px;
-}
+/* UPLOAD */
+.upzone{border:1.5px dashed rgba(59,130,246,0.25);background:rgba(59,130,246,0.02);
+  border-radius:10px;padding:12px;text-align:center;cursor:pointer;transition:all 0.2s;position:relative;}
+.upzone:hover{border-color:rgba(59,130,246,0.5);background:rgba(59,130,246,0.05);}
+.upzone .hf{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.up-p{font-size:11px;color:var(--muted2);font-weight:500;}
+.up-s{font-size:10px;color:var(--muted);display:block;margin-top:2px;}
 
-/* MAIN LAYOUT */
-.main {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 24px 60px;
-  display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 24px;
-  align-items: start;
-}
+/* BTN */
+.btn-gen{width:100%;margin-top:20px;padding:16px;
+  background:linear-gradient(135deg,#1d4ed8,#3b82f6);border:none;border-radius:11px;
+  color:white;font-family:var(--font);font-size:16px;font-weight:700;cursor:pointer;
+  transition:all 0.25s;position:relative;overflow:hidden;
+  box-shadow:0 8px 24px rgba(37,99,235,0.28);display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-gen::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);transition:left 0.4s;}
+.btn-gen:hover::before{left:100%;}
+.btn-gen:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(37,99,235,0.4);}
+.btn-gen:active{transform:scale(0.99);}
+.btn-ico{font-size:17px;animation:zap 1.5s ease-in-out infinite;}
+@keyframes zap{0%,100%{transform:scale(1) rotate(0deg);}50%{transform:scale(1.2) rotate(-10deg);}}
 
-/* FORM PANEL */
-.form-panel {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-}
-.panel-header {
-  background: rgba(255,255,255,0.03);
-  border-bottom: 1px solid var(--border);
-  padding: 16px 24px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.panel-header-icon {
-  width: 32px; height: 32px;
-  background: rgba(79,127,255,0.12);
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px;
-}
-.panel-header-title { font-size: 14px; font-weight: 700; }
-.panel-header-sub { font-size: 12px; color: var(--muted); margin-top: 1px; }
-.panel-body { padding: 24px; }
-
-/* SECTIONS */
-.section { margin-bottom: 28px; }
-.section-title {
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--muted);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-bottom: 14px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.section-title-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  display: inline-block;
-}
-
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
-
-.field { margin-bottom: 14px; }
-label {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--muted);
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 7px;
-}
-.label-required {
-  color: var(--red);
-  font-size: 10px;
-}
-.label-opt {
-  background: rgba(107,127,160,0.15);
-  color: var(--muted);
-  font-size: 10px;
-  padding: 1px 6px;
-  border-radius: 4px;
-  font-weight: 600;
-}
-
-select, input[type="text"], textarea {
-  width: 100%;
-  padding: 11px 14px;
-  border-radius: var(--radius);
-  border: 1px solid var(--border-light);
-  background: #0b1120;
-  color: var(--text);
-  font-family: var(--font);
-  font-size: 13.5px;
-  transition: all 0.2s;
-  appearance: none;
-  -webkit-appearance: none;
-}
-select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7fa0' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  padding-right: 36px;
-  cursor: pointer;
-  color: var(--accent2);
-  font-weight: 600;
-}
-select:focus, input[type="text"]:focus, textarea:focus {
-  border-color: var(--accent);
-  background: #0d1526;
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(79,127,255,0.15);
-}
-input::placeholder { color: #3a4d6e; }
-
-.custom-input-wrap {
-  display: none;
-  margin-top: 8px;
-  padding: 12px;
-  background: rgba(79,127,255,0.04);
-  border: 1px dashed rgba(79,127,255,0.25);
-  border-radius: 8px;
-}
-.custom-input-wrap input {
-  background: #0a1020;
-  border-color: rgba(79,127,255,0.2);
-  color: var(--green);
-  font-weight: 500;
-}
-.custom-hint {
-  font-size: 11px;
-  color: var(--muted);
-  margin-top: 5px;
-}
-
-/* MENU TABLE */
-.menu-table-head {
-  display: grid;
-  grid-template-columns: 1fr 140px 36px;
-  gap: 8px;
-  margin-bottom: 8px;
-  padding: 0 4px;
-}
-.menu-table-head span {
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--muted);
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-}
-.menu-row {
-  display: grid;
-  grid-template-columns: 1fr 140px 36px;
-  gap: 8px;
-  margin-bottom: 8px;
-  align-items: center;
-  animation: rowIn 0.2s ease;
-}
-@keyframes rowIn {
-  from { opacity:0; transform: translateY(-6px); }
-  to { opacity:1; transform: translateY(0); }
-}
-.remove-row-btn {
-  width: 36px; height: 36px;
-  background: rgba(239,68,68,0.08);
-  border: 1px solid rgba(239,68,68,0.2);
-  color: var(--red);
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.15s;
-  flex-shrink: 0;
-}
-.remove-row-btn:hover { background: rgba(239,68,68,0.18); }
-.add-menu-btn {
-  width: 100%;
-  padding: 10px;
-  background: rgba(16,185,129,0.07);
-  border: 1px dashed rgba(16,185,129,0.3);
-  color: var(--green);
-  border-radius: var(--radius);
-  font-family: var(--font);
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s;
-  margin-top: 10px;
-}
-.add-menu-btn:hover { background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.5); }
-
-/* GENERATE BUTTON */
-.gen-btn {
-  width: 100%;
-  padding: 16px;
-  background: linear-gradient(135deg, var(--accent), #6b4fff);
-  color: white;
-  border: none;
-  border-radius: var(--radius);
-  font-family: var(--font);
-  font-size: 16px;
-  font-weight: 800;
-  cursor: pointer;
-  letter-spacing: 0.3px;
-  transition: all 0.2s;
-  position: relative;
-  overflow: hidden;
-  margin-top: 8px;
-}
-.gen-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(79,127,255,0.35); }
-.gen-btn:active { transform: scale(0.99); }
-.gen-btn::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
-  transform: translateX(-100%);
-}
-.gen-btn:hover::after { transition: transform 0.5s; transform: translateX(100%); }
-
-/* SIDEBAR / OUTPUT PANEL */
-.sidebar { display: flex; flex-direction: column; gap: 16px; }
-
-/* HOW-TO CARD */
-.howto-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 20px;
-}
-.howto-title {
-  font-size: 13px;
-  font-weight: 700;
-  margin-bottom: 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--accent2);
-}
-.howto-step {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 12px;
-  align-items: flex-start;
-}
-.step-num {
-  width: 22px; height: 22px;
-  background: rgba(79,127,255,0.12);
-  border: 1px solid rgba(79,127,255,0.25);
-  border-radius: 50%;
-  color: var(--accent);
-  font-size: 11px;
-  font-weight: 800;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-.step-text { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
-.step-text strong { color: var(--text); font-weight: 600; }
-
-/* OUTPUT CARDS */
-.output-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  transition: border-color 0.2s;
-}
-.output-card:hover { border-color: var(--border-light); }
-.output-card-header {
-  padding: 14px 18px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--border);
-}
-.output-label {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.version-badge {
-  width: 28px; height: 28px;
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px;
-  font-weight: 800;
-}
-.v1-badge { background: rgba(79,127,255,0.12); color: var(--v1); border: 1px solid rgba(79,127,255,0.25); }
-.v2-badge { background: rgba(245,158,11,0.12); color: var(--v2); border: 1px solid rgba(245,158,11,0.25); }
-.v3-badge { background: rgba(139,92,246,0.12); color: var(--v3); border: 1px solid rgba(139,92,246,0.25); }
-
-.output-name { font-size: 13px; font-weight: 700; }
-.output-desc { font-size: 11px; color: var(--muted); }
-.copy-btn {
-  padding: 7px 14px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid var(--border-light);
-  color: var(--text);
-  border-radius: 7px;
-  font-family: var(--font);
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.15s;
-  white-space: nowrap;
-}
-.copy-btn:hover { background: rgba(255,255,255,0.1); }
-.copy-btn.copied { background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.3); color: var(--green); }
-
-.output-body { padding: 16px 18px; }
-.prompt-area {
-  width: 100%;
-  height: 280px;
-  background: #060810;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 14px;
-  font-family: var(--mono);
-  font-size: 11.5px;
-  color: #34d399;
-  line-height: 1.7;
-  resize: vertical;
-  transition: border-color 0.2s;
-}
-.prompt-area:focus { border-color: rgba(79,127,255,0.4); outline: none; }
-
-.char-count {
-  font-size: 11px;
-  color: var(--muted);
-  text-align: right;
-  margin-top: 6px;
-}
-
-/* OUTPUT SECTION WRAPPER */
-.output-section {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-/* STAT ROW */
-.stat-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-bottom: 20px;
-}
-.stat-item {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  text-align: center;
-}
-.stat-num { font-size: 20px; font-weight: 800; }
-.stat-lbl { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: 0.5px; margin-top: 2px; }
-
-/* TIPS */
-.tips-list { list-style: none; }
-.tips-list li {
-  font-size: 12px;
-  color: var(--muted);
-  padding: 7px 0;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  gap: 8px;
-  align-items: flex-start;
-  line-height: 1.5;
-}
-.tips-list li:last-child { border-bottom: none; }
-.tip-icon { font-size: 13px; flex-shrink: 0; margin-top: 1px; }
-
-/* TOAST */
-.toast {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  background: #1a2a1a;
-  border: 1px solid var(--green);
-  color: var(--green);
-  padding: 12px 20px;
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: 700;
-  transform: translateY(80px);
-  opacity: 0;
-  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.toast.show { transform: translateY(0); opacity: 1; }
-
-/* FOOTER */
-.footer {
-  text-align: center;
-  padding: 24px;
-  color: var(--muted);
-  font-size: 12px;
-  border-top: 1px solid var(--border);
-  margin-top: 40px;
-}
-
-/* EMPTY STATE */
-.empty-state {
-  text-align: center;
-  padding: 40px 20px;
-  color: var(--muted);
-}
-.empty-icon { font-size: 40px; margin-bottom: 12px; }
-.empty-text { font-size: 13px; line-height: 1.6; }
-
-/* DIVIDER */
-.divider { height: 1px; background: var(--border); margin: 20px 0; }
-
-/* COLOR PREVIEW */
-.color-row {
-  display: flex;
-  gap: 8px;
-  margin-top: 8px;
-  flex-wrap: wrap;
-}
-.color-chip {
-  padding: 5px 10px;
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: 700;
-  cursor: pointer;
-  border: 1px solid transparent;
-  transition: all 0.15s;
-}
-.color-chip:hover { transform: scale(1.05); }
-.color-chip.active { border-color: white; transform: scale(1.08); }
-
-@media (max-width: 900px) {
-  .main { grid-template-columns: 1fr; }
-  .sidebar { order: -1; }
-  .grid-2 { grid-template-columns: 1fr; }
-  .grid-3 { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 560px) {
-  .grid-3 { grid-template-columns: 1fr; }
-  .menu-table-head, .menu-row {
-    grid-template-columns: 1fr 110px 36px;
-  }
+/* OUTPUT */
+.out-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:16px;}
+.pr-wrap{background:rgba(3,5,12,0.85);border:1px solid rgba(255,255,255,0.06);border-radius:12px;overflow:hidden;}
+.pr-hd{padding:11px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;
+  background:rgba(255,255,255,0.015);border-bottom:1px solid rgba(255,255,255,0.04);}
+.pr-left{display:flex;align-items:center;gap:8px;min-width:0;}
+.pr-badge{background:var(--b1);color:white;font-size:10px;font-weight:800;
+  padding:2px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0;}
+.pr-title{font-size:12px;font-weight:600;color:var(--muted2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.btn-copy{padding:5px 12px;background:rgba(255,255,255,0.04);border:1px solid var(--b2);
+  color:var(--muted2);border-radius:7px;font-family:var(--font);font-size:11px;font-weight:600;
+  cursor:pointer;transition:all 0.15s;white-space:nowrap;flex-shrink:0;}
+.btn-copy:hover{background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.3);color:var(--b3);}
+.btn-copy.ok{background:rgba(16,185,129,0.1);border-color:rgba(16,185,129,0.3);color:var(--green);}
+.pta{width:100%;min-height:360px;padding:14px 16px;background:transparent;border:none;
+  resize:vertical;color:#4a90d9;font-family:'Courier New',monospace;font-size:12px;line-height:1.7;display:block;}
+.pta:focus{outline:none;color:#6aafdf;}
+.empty{text-align:center;padding:40px 20px;}
+.emico{font-size:40px;opacity:0.15;margin-bottom:10px;display:block;}
+.emtxt{font-size:13px;color:var(--muted);line-height:1.8;}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);opacity:0;
+  background:rgba(8,12,26,0.95);border:1px solid rgba(59,130,246,0.4);color:var(--b3);
+  padding:10px 20px;border-radius:11px;font-size:12px;font-weight:600;
+  backdrop-filter:blur(12px);z-index:999;transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(59,130,246,0.2);border-radius:3px;}
+@media(max-width:640px){
+  .nav{padding:0 14px;}.wrap{padding:0 12px;}.cbody{padding:16px;}
+  .fg{grid-template-columns:1fr;}.fw{grid-column:span 1;}
+  .gaya-name{font-size:14px;}
+  .gaya-desc{font-size:12px;}
+  input[type="text"],select{font-size:14px;padding:11px 13px;}
+  .btn-gen{font-size:15px;padding:15px;}
 }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<div class="header">
-  <div class="header-inner">
-    <div class="logo">
-      <div class="logo-icon">⚡</div>
-      <div>
-        <div class="logo-text">Master Ad<span>Gen</span> Pro</div>
-      </div>
-    </div>
-    <div class="header-right">
-      <div class="header-badge">FREE · NO LOGIN</div>
-    </div>
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-icon">⚡</div>
+    <div><div class="nav-brand">Gen <span>UMKM</span></div><div class="nav-sub">Support • Gratis untuk UMKM</div></div>
   </div>
-</div>
+  <span class="pill pg">● LIVE</span>
+</nav>
 
-<!-- HERO -->
 <div class="hero">
-  <h1>Buat Prompt Iklan Makanan<br>AI dalam 30 Detik</h1>
-  <p>Isi form → Generate 3 versi prompt profesional → Copy → Paste ke Gemini / Midjourney / DALL-E</p>
-  <div class="hero-tags">
-    <span class="hero-tag">✓ 3 Versi Prompt</span>
-    <span class="hero-tag">✓ Clean Minimalist</span>
-    <span class="hero-tag">✓ 3D Center Impact</span>
-    <span class="hero-tag">✓ Editorial Stylish</span>
-    <span class="hero-tag">✓ Tanpa Login</span>
+  <h1 class="hero-title">Gen UMKM Support</h1>
+  <p class="hero-sub">🎁 Gratis untuk semua UMKM Indonesia — Pilih gaya → isi data → generate prompt desain siap pakai untuk ChatGPT / Gemini</p>
+</div>
+
+<div class="wrap">
+<div class="card">
+  <div class="chd"><div class="chd-ico">✏️</div>
+    <div><div class="chd-t">Konfigurasi Desain</div><div class="chd-s">Pilih gaya → isi data → generate</div></div>
+  </div>
+  <div class="cbody"><div class="fg">
+
+    <!-- STEP 1: GAYA -->
+    <div class="fw">
+      <div class="sdiv"><div class="snum">1</div><div class="slbl">Pilih Gaya Desain</div></div>
+      <div class="gaya-list">
+        <label class="gaya-opt"><input type="radio" name="gaya" value="1" checked onchange="switchGaya()">
+          <div class="gaya-lbl"><span class="gaya-num">1️⃣</span><div class="gaya-info">
+            <div class="gaya-name">Gaya 1 <span class="rec">⭐ REKOMENDASI</span></div>
+            <div class="gaya-desc">✅ Cocok untuk UMKM kuliner, warung makan, kafe, minuman</div>
+          </div></div></label>
+
+        <label class="gaya-opt"><input type="radio" name="gaya" value="2" onchange="switchGaya()">
+          <div class="gaya-lbl"><span class="gaya-num">2️⃣</span><div class="gaya-info">
+            <div class="gaya-name">Gaya 2</div>
+            <div class="gaya-desc">✅ Cocok untuk jasa — service HP, bengkel, tambal ban, laundry, kontraktor</div>
+          </div></div></label>
+        <label class="gaya-opt"><input type="radio" name="gaya" value="3" onchange="switchGaya()">
+          <div class="gaya-lbl"><span class="gaya-num">3️⃣</span><div class="gaya-info">
+            <div class="gaya-name">Gaya 3</div>
+            <div class="gaya-desc">✅ Cocok untuk UMKM makanan yang mau tampil franchise-level</div>
+          </div></div></label>
+        <label class="gaya-opt"><input type="radio" name="gaya" value="4" onchange="switchGaya()">
+          <div class="gaya-lbl"><span class="gaya-num">4️⃣</span><div class="gaya-info">
+            <div class="gaya-name">Gaya 4</div>
+            <div class="gaya-desc">✅ Cocok untuk promo menu makanan/minuman yang mau viral</div>
+          </div></div></label>
+        <label class="gaya-opt"><input type="radio" name="gaya" value="5" onchange="switchGaya()">
+          <div class="gaya-lbl"><span class="gaya-num">5️⃣</span><div class="gaya-info">
+            <div class="gaya-name">Gaya 5</div>
+            <div class="gaya-desc">✅ Cocok untuk semua jasa & bisnis — tampilan Behance editorial premium</div>
+          </div></div></label>
+      </div>
+    </div>
+
+    <!-- STEP 2: UKURAN -->
+    <div class="fw">
+      <div class="sdiv"><div class="snum">2</div><div class="slbl">Ukuran Poster</div></div>
+      <div class="size-wrap">
+        <label class="sz-opt"><input type="radio" name="sz" value="1080x1350" checked>
+          <div class="sz-lbl"><span class="sz-ico">🖼️</span><span class="sz-name">Feed</span><span class="sz-dim">1080×1350</span></div></label>
+        <label class="sz-opt"><input type="radio" name="sz" value="1024x1536">
+          <div class="sz-lbl"><span class="sz-ico">📐</span><span class="sz-name">Portrait</span><span class="sz-dim">1024×1536</span><span class="sz-rec">✦ Rekomendasi</span></div></label>
+        <label class="sz-opt"><input type="radio" name="sz" value="1080x1920">
+          <div class="sz-lbl"><span class="sz-ico">📱</span><span class="sz-name">Story</span><span class="sz-dim">1080×1920</span></div></label>
+      </div>
+    </div>
+
+    <!-- STEP 3: SHARED -->
+    <div class="fw"><div class="sdiv"><div class="snum">3</div><div class="slbl">Data Brand & Kontak</div></div></div>
+    <div class="fld fw">
+      <div class="fl">Nama Brand <span class="flo">(ketik → form terisi otomatis)</span></div>
+      <input type="text" id="brand" placeholder="Contoh: Mama Laundry / Seblak Gobyos / Aura Glow..." onblur="autoFill()">
+    </div>
+    <div class="fld"><div class="fl">WhatsApp</div><input type="text" id="wa" placeholder="08xx-xxxx-xxxx"></div>
+    <div class="fld"><div class="fl">Instagram (@)</div><input type="text" id="ig" placeholder="@brand.id"></div>
+    <div class="fld"><div class="fl">TikTok (@) <span class="flo">(opsional)</span></div><input type="text" id="tt" placeholder="@brand.tiktok"></div>
+    <div class="fld"><div class="fl">Warna Utama / Latar</div>
+      <select id="colorMain">
+        <option value="">— Pilih Warna —</option>
+        <option value="" disabled>── PUTIH & TERANG</option>
+        <option value="Pure White">⚪ Putih Bersih</option>
+        <option value="Off-White / Cream">⚪ Krem / Off-White</option>
+        <option value="Soft Blue-White">🔵 Biru Putih Soft</option>
+        <option value="" disabled>── BIRU</option>
+        <option value="Electric Blue">🔵 Biru Electric</option>
+        <option value="Sky Blue">🔵 Biru Langit</option>
+        <option value="Navy Blue">🔵 Navy Blue</option>
+        <option value="" disabled>── MERAH & ORANYE</option>
+        <option value="Bright Warm Red">🔴 Merah Cabe</option>
+        <option value="Tropical Orange">🟠 Oranye Tropical</option>
+        <option value="Burgundy">🔴 Merah Marun</option>
+        <option value="" disabled>── HIJAU</option>
+        <option value="Emerald Green">🟢 Hijau Emerald</option>
+        <option value="Sage Green">🟢 Hijau Sage</option>
+        <option value="" disabled>── UNGU & PINK</option>
+        <option value="Deep Purple">🟣 Ungu Tua</option>
+        <option value="Hot Pink">🩷 Pink Terang</option>
+        <option value="Rose Gold">🩷 Rose Gold</option>
+        <option value="" disabled>── GELAP</option>
+        <option value="Charcoal Black">⚫ Charcoal Black</option>
+        <option value="Jet Black">⚫ Hitam Pekat</option>
+        <option value="Dark Navy">⚫ Navy Gelap</option>
+        <option value="" disabled>── COKLAT & KUNING</option>
+        <option value="Warm Brown">🟤 Coklat Hangat</option>
+        <option value="Espresso">🟤 Espresso</option>
+        <option value="Golden Yellow">🟡 Kuning Emas</option>
+        <option value="Bright Yellow">🟡 Kuning Cerah</option>
+      </select>
+    </div>
+    <div class="fld"><div class="fl">Warna Aksen</div>
+      <select id="colorAccent">
+        <option value="">— Pilih Warna —</option>
+        <option value="" disabled>── TERANG</option>
+        <option value="Pure White">⚪ Putih</option>
+        <option value="Lime Green / Neon">🟢 Lime / Neon Green</option>
+        <option value="Golden Yellow">🟡 Kuning Emas</option>
+        <option value="Bright Orange">🟠 Oranye</option>
+        <option value="" disabled>── METALIK</option>
+        <option value="Gold Metallic">✨ Gold Metalik</option>
+        <option value="Silver Metallic">✨ Silver</option>
+        <option value="Rose Gold">🩷 Rose Gold</option>
+        <option value="" disabled>── LAINNYA</option>
+        <option value="Electric Blue">🔵 Biru Electric</option>
+        <option value="Hot Pink">🩷 Pink</option>
+        <option value="Charcoal Black">⚫ Hitam</option>
+      </select>
+    </div>
+
+    <!-- STEP 4: GAYA FIELDS -->
+    <div class="fw"><div class="sdiv"><div class="snum">4</div><div class="slbl" id="step4lbl">Data Gaya 1</div></div></div>
+
+    <!-- G1 -->
+    <div id="s1" class="dsec on fw"><div class="fg">
+      <div class="fld fw"><div class="fl">Nama Menu / Produk</div><input type="text" id="g1_menu" placeholder="Contoh: Seblak Ceker Mercon / Kopi Susu Aren..."></div>
+      <div class="fld"><div class="fl">Judul Utama</div><input type="text" id="g1_judul" placeholder="PROMO SPESIAL HARI INI!"></div>
+      <div class="fld"><div class="fl">Teks Pendukung</div><input type="text" id="g1_sub" placeholder="Rasanya bikin nagih, wajib dicoba!"></div>
+      <div class="fld"><div class="fl">Harga</div><input type="text" id="g1_harga" placeholder="Rp 15.000 / Porsi"></div>
+      <div class="fld"><div class="fl">Tombol CTA</div><input type="text" id="g1_cta" placeholder="PESAN SEKARANG"></div>
+      <div class="fld fw"><div class="fl">Foto Referensi <span class="flo">(opsional)</span></div>
+        <div class="upzone"><input type="file" id="g1_foto" class="hf" accept="image/*" onchange="setLabel(this,'g1_lbl')">
+          <p id="g1_lbl" class="up-p">📸 Upload foto referensi layout</p><span class="up-s">JPG · PNG · WEBP</span></div>
+      </div>
+    </div></div>
+
+
+
+    <!-- G3 -->
+    <div id="s2" class="dsec fw"><div class="fg">
+      <div class="fld"><div class="fl">Headline Utama</div><input type="text" id="g3_hl" placeholder="SERVICE HP PROFESIONAL"></div>
+      <div class="fld"><div class="fl">Subheadline</div><input type="text" id="g3_sub" placeholder="Semua merk ditangani, garansi resmi"></div>
+      <div class="fld"><div class="fl">Harga / Promo</div><input type="text" id="g3_harga" placeholder="Mulai Rp 50.000"></div>
+      <div class="fld"><div class="fl">CTA</div><input type="text" id="g3_cta" placeholder="SERVIS SEKARANG"></div>
+      <div class="fld fw"><div class="fl">Visual Utama (1-3 objek)</div><input type="text" id="g3_visual" placeholder="Tangan teknisi profesional memperbaiki HP, workbench bersih dan rapi"></div>
+      <div class="fld fw"><div class="fl">Foto Referensi <span class="flo">(opsional)</span></div>
+        <div class="upzone"><input type="file" id="g3_foto" class="hf" accept="image/*" onchange="setLabel(this,'g3_lbl')">
+          <p id="g3_lbl" class="up-p">📸 Upload foto referensi</p><span class="up-s">JPG · PNG · WEBP</span></div>
+      </div>
+    </div></div>
+
+    <!-- G4 -->
+    <div id="s3" class="dsec fw"><div class="fg">
+      <div class="fld"><div class="fl">Nama Produk (Headline Line 1)</div><input type="text" id="g4_l1" placeholder="AYAM GEPREK"></div>
+      <div class="fld"><div class="fl">Hero Word (Line 2 — lebih besar)</div><input type="text" id="g4_l2" placeholder="JUARA"></div>
+      <div class="fld fw"><div class="fl">Deskripsi Produk</div><input type="text" id="g4_sub" placeholder="Pedas Nagih, Ayam Crispy, Sambal Melimpah"></div>
+      <div class="fld"><div class="fl">Harga</div><input type="text" id="g4_harga" placeholder="Rp 15.000"></div>
+      <div class="fld"><div class="fl">Harga Coret</div><input type="text" id="g4_coret" placeholder="Rp 25.000"></div>
+      <div class="fld fw"><div class="fl">CTA</div><input type="text" id="g4_cta" placeholder="PESAN SEKARANG"></div>
+      <div class="fld fw"><div class="fl">Foto Produk <span class="flo">(opsional)</span></div>
+        <div class="upzone"><input type="file" id="g4_foto" class="hf" accept="image/*" onchange="setLabel(this,'g4_lbl')">
+          <p id="g4_lbl" class="up-p">📸 Upload foto makanan</p><span class="up-s">JPG · PNG · WEBP</span></div>
+      </div>
+    </div></div>
+
+    <!-- G5 -->
+    <div id="s4" class="dsec fw"><div class="fg">
+      <div class="fld"><div class="fl">Headline Line 1</div><input type="text" id="g5_l1" placeholder="AYAM GEPREK"></div>
+      <div class="fld"><div class="fl">Headline Line 2 (3x lebih besar)</div><input type="text" id="g5_l2" placeholder="JUARA"></div>
+      <div class="fld fw"><div class="fl">Subheadline</div><input type="text" id="g5_sub" placeholder="Pedas Nagih, Ayam Crispy, Sambal Melimpah"></div>
+      <div class="fld"><div class="fl">Harga</div><input type="text" id="g5_harga" placeholder="Rp 15.000"></div>
+      <div class="fld"><div class="fl">Harga Coret</div><input type="text" id="g5_coret" placeholder="Rp 25.000"></div>
+      <div class="fld fw"><div class="fl">CTA</div><input type="text" id="g5_cta" placeholder="PESAN SEKARANG"></div>
+      <div class="fld fw"><div class="fl">Foto Produk <span class="flo">(opsional)</span></div>
+        <div class="upzone"><input type="file" id="g5_foto" class="hf" accept="image/*" onchange="setLabel(this,'g5_lbl')">
+          <p id="g5_lbl" class="up-p">📸 Upload foto makanan/minuman</p><span class="up-s">JPG · PNG · WEBP</span></div>
+      </div>
+    </div></div>
+
+    <!-- G6 -->
+    <div id="s5" class="dsec fw"><div class="fg">
+      <div class="fld"><div class="fl">Headline Line 1 (intro kecil)</div><input type="text" id="g6_l1" placeholder="Professional / Trusted / Looking For"></div>
+      <div class="fld"><div class="fl">Headline Line 2 (paling besar)</div><input type="text" id="g6_l2" placeholder="REPAIR / SERVICE / DESIGN"></div>
+      <div class="fld fw"><div class="fl">Badge Line 3 (rounded gradient badge)</div><input type="text" id="g6_badge" placeholder="Services / Studio / Solutions"></div>
+      <div class="fld fw"><div class="fl">Deskripsi Singkat</div><input type="text" id="g6_sub" placeholder="Layanan profesional berkualitas tinggi untuk kebutuhan kamu"></div>
+      <div class="fld"><div class="fl">Benefit 1</div><input type="text" id="g6_b1" placeholder="Fast Response"></div>
+      <div class="fld"><div class="fl">Benefit 2</div><input type="text" id="g6_b2" placeholder="Professional Team"></div>
+      <div class="fld"><div class="fl">Benefit 3</div><input type="text" id="g6_b3" placeholder="Experienced"></div>
+      <div class="fld"><div class="fl">Benefit 4</div><input type="text" id="g6_b4" placeholder="Trusted Service"></div>
+      <div class="fld"><div class="fl">CTA</div><input type="text" id="g6_cta" placeholder="CONTACT US"></div>
+      <div class="fld"><div class="fl">Website <span class="flo">(opsional)</span></div><input type="text" id="g6_web" placeholder="www.brand.com"></div>
+      <div class="fld fw"><div class="fl">Hero Visual</div><input type="text" id="g6_hero" placeholder="Contoh: professional technician / barista / product render"></div>
+      <div class="fld fw"><div class="fl">Showcase Card</div><input type="text" id="g6_card" placeholder="Before/After hasil / Rating 5 bintang / Portfolio terbaik"></div>
+    </div></div>
+
+  </div>
+  <button class="btn-gen" onclick="generate()"><span class="btn-ico">⚡</span> Generate Prompt Sekarang</button>
   </div>
 </div>
 
-<!-- MAIN -->
-<div class="main">
-
-  <!-- FORM PANEL -->
-  <div class="form-panel">
-    <div class="panel-header">
-      <div class="panel-header-icon">✏️</div>
-      <div>
-        <div class="panel-header-title">Data Iklan Anda</div>
-        <div class="panel-header-sub">Isi semua field lalu klik Generate</div>
-      </div>
-    </div>
-    <div class="panel-body">
-
-      <!-- IDENTITAS BRAND -->
-      <div class="section">
-        <div class="section-title"><span class="section-title-dot"></span>Identitas Brand</div>
-        <div class="grid-2">
-          <div class="field">
-            <label>Nama Brand <span class="label-required">*</span></label>
-            <input type="text" id="brand" placeholder="Contoh: Es Degan Nusantara" value="Es Degan Nusantara">
-          </div>
-          <div class="field">
-            <label>Sub-Judul Pendukung <span class="label-required">*</span></label>
-            <input type="text" id="sub" placeholder="Contoh: segarnya bikin adem sepanjang hari" value="segarnya bikin adem sepanjang hari">
-          </div>
-        </div>
-      </div>
-
-      <!-- KALIMAT UTAMA -->
-      <div class="section">
-        <div class="section-title"><span class="section-title-dot"></span>Kalimat Penarik (Headline)</div>
-        <div class="field">
-          <label>Pilih Judul Utama <span class="label-required">*</span></label>
-          <select id="judul_select" onchange="toggleCustom('judul_select','cust_judul')">
-            <option value="Promo Es Degan Segar">Promo Es Degan Segar</option>
-            <option value="Diskon Gila-gilaan!">Diskon Gila-gilaan!</option>
-            <option value="Beli 1 Gratis 1!">Beli 1 Gratis 1!</option>
-            <option value="Banting Harga Hanya Hari Ini!">Banting Harga Hanya Hari Ini!</option>
-            <option value="Harga Kaki Lima, Rasa Bintang Lima!">Harga Kaki Lima, Rasa Bintang Lima!</option>
-            <option value="Rasanya Juara, Harganya Merakyat!">Rasanya Juara, Harganya Merakyat!</option>
-            <option value="Jangan Coba Kalau Gak Mau Ketagihan!">Jangan Coba Kalau Gak Mau Ketagihan!</option>
-            <option value="Flash Sale Hari Ini Saja!">Flash Sale Hari Ini Saja!</option>
-            <option value="Rasa Premium, Harga Terjangkau!">Rasa Premium, Harga Terjangkau!</option>
-            <option value="Habis Cepet, Jangan Nyesel!">Habis Cepet, Jangan Nyesel!</option>
-            <option value="CUSTOM">— Ketik Judul Sendiri —</option>
-          </select>
-          <div id="cust_judul" class="custom-input-wrap">
-            <input type="text" id="judul_manual" placeholder="Tulis kalimat penarik Anda di sini...">
-            <div class="custom-hint">💡 Gunakan kata-kata yang emosional & mengundang rasa penasaran</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- WARNA -->
-      <div class="section">
-        <div class="section-title"><span class="section-title-dot"></span>Palet Warna Desain</div>
-        <div class="grid-2">
-          <div class="field">
-            <label>Warna Latar Belakang</label>
-            <select id="warna_latar" onchange="toggleCustom('warna_latar','cust_latar'); updateColorChips()">
-              <option value="Hijau Segar">Hijau Segar (Default)</option>
-              <option value="Merah">Merah (Seblak/Bakso/Pedas)</option>
-              <option value="Kuning">Kuning (Menggugah Selera)</option>
-              <option value="Orange">Orange (Energetik)</option>
-              <option value="Hitam Mewah">Hitam Mewah (Eksklusif)</option>
-              <option value="Putih Estetik">Putih Estetik (Minimalis)</option>
-              <option value="Biru">Biru (Seafood/Minuman)</option>
-              <option value="Coklat">Coklat (Kopi/Dessert)</option>
-              <option value="Ungu">Ungu (Premium/Unik)</option>
-              <option value="Pink">Pink (Viral/Kekinian)</option>
-              <option value="CUSTOM">— Ketik Warna Sendiri —</option>
-            </select>
-            <div id="cust_latar" class="custom-input-wrap">
-              <input type="text" id="warna_latar_manual" placeholder="Contoh: Tosca gelap, Biru navy...">
-            </div>
-            <div class="color-row" id="latar-chips">
-              <div class="color-chip active" style="background:#16a34a;color:white;" onclick="setColor('warna_latar','Hijau Segar',this)">Hijau</div>
-              <div class="color-chip" style="background:#dc2626;color:white;" onclick="setColor('warna_latar','Merah',this)">Merah</div>
-              <div class="color-chip" style="background:#ca8a04;color:white;" onclick="setColor('warna_latar','Kuning',this)">Kuning</div>
-              <div class="color-chip" style="background:#ea580c;color:white;" onclick="setColor('warna_latar','Orange',this)">Orange</div>
-              <div class="color-chip" style="background:#1e293b;color:white;" onclick="setColor('warna_latar','Hitam Mewah',this)">Hitam</div>
-              <div class="color-chip" style="background:#f8fafc;color:#333;" onclick="setColor('warna_latar','Putih Estetik',this)">Putih</div>
-            </div>
-          </div>
-          <div class="field">
-            <label>Warna Aksen / Badge</label>
-            <select id="warna_aksen" onchange="toggleCustom('warna_aksen','cust_aksen')">
-              <option value="Putih">Putih (Default Kontras)</option>
-              <option value="Orange">Orange (Vibrant)</option>
-              <option value="Kuning Emas">Kuning Emas (Premium)</option>
-              <option value="Merah">Merah (Mencolok)</option>
-              <option value="Hitam">Hitam (Minimalis)</option>
-              <option value="Gold Metalik">Gold Metalik (Mewah)</option>
-              <option value="Silver">Silver (Elegan)</option>
-              <option value="CUSTOM">— Ketik Warna Aksen Sendiri —</option>
-            </select>
-            <div id="cust_aksen" class="custom-input-wrap">
-              <input type="text" id="warna_aksen_manual" placeholder="Contoh: Gold, Tosca, Neon Green...">
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- MENU & HARGA -->
-      <div class="section">
-        <div class="section-title"><span class="section-title-dot"></span>Menu & Harga Promo</div>
-        <div class="menu-table-head">
-          <span>Nama Menu</span>
-          <span>Harga Promo</span>
-          <span></span>
-        </div>
-        <div id="menu-container">
-          <div class="menu-row">
-            <input type="text" class="p-name" placeholder="Nama menu..." value="Es Degan Original, Es Degan Jeruk, Es Degan Susu">
-            <input type="text" class="p-price" placeholder="Harga..." value="8.000 / gelas">
-            <button class="remove-row-btn" onclick="removeRow(this)" title="Hapus baris">×</button>
-          </div>
-        </div>
-        <button class="add-menu-btn" onclick="addRow()">＋ Tambah Baris Menu</button>
-      </div>
-
-      <!-- KONTAK & SOSMED -->
-      <div class="section">
-        <div class="section-title"><span class="section-title-dot"></span>Kontak & Media Sosial</div>
-        <div class="grid-2">
-          <div class="field">
-            <label>Nomor WhatsApp <span class="label-required">*</span></label>
-            <input type="text" id="wa" placeholder="0812-3456-7890" value="0812-3456-7890">
-          </div>
-          <div class="field">
-            <label>Instagram <span class="label-opt">opsional</span></label>
-            <input type="text" id="ig" placeholder="@nama_akun" value="@esdegannusantara">
-          </div>
-        </div>
-        <div class="grid-2">
-          <div class="field">
-            <label>TikTok <span class="label-opt">opsional</span></label>
-            <input type="text" id="tt" placeholder="@tiktokbrand">
-          </div>
-          <div class="field">
-            <label>Call-to-Action Button <span class="label-required">*</span></label>
-            <select id="cta_select" onchange="toggleCustom('cta_select','cust_cta')">
-              <option value="ORDER SEKARANG">ORDER SEKARANG</option>
-              <option value="BELI SEKARANG">BELI SEKARANG</option>
-              <option value="PESAN VIA WHATSAPP">PESAN VIA WHATSAPP</option>
-              <option value="AMBIL PROMO SEKARANG">AMBIL PROMO SEKARANG</option>
-              <option value="KLIK LINK DI BIO">KLIK LINK DI BIO</option>
-              <option value="HUBUNGI KAMI">HUBUNGI KAMI</option>
-              <option value="CUSTOM">— Ketik Sendiri —</option>
-            </select>
-            <div id="cust_cta" class="custom-input-wrap">
-              <input type="text" id="cta_manual" placeholder="Ketik teks tombol CTA Anda...">
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- GENERATE BUTTON -->
-      <button class="gen-btn" onclick="generateAll()">
-        ⚡ GENERATE 3 VERSI PROMPT SEKARANG
-      </button>
-
+<div class="out-card" id="outCard">
+  <div class="chd"><div class="chd-ico">🎨</div>
+    <div><div class="chd-t">Output Prompt</div><div class="chd-s">Copy → paste ke ChatGPT/Gemini → attach foto jika ada</div></div>
+  </div>
+  <div class="cbody" id="outBody">
+    <div class="empty"><span class="emico">🖼️</span>
+      <div class="emtxt">Pilih gaya, isi data, lalu klik <strong style="color:var(--b3)">Generate</strong></div>
     </div>
   </div>
-
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-
-    <!-- HOW TO USE -->
-    <div class="howto-card">
-      <div class="howto-title">🎯 Cara Pakai (4 Langkah)</div>
-      <div class="howto-step">
-        <div class="step-num">1</div>
-        <div class="step-text"><strong>Isi semua data</strong> brand, menu, harga, dan kontak di form kiri</div>
-      </div>
-      <div class="howto-step">
-        <div class="step-num">2</div>
-        <div class="step-text"><strong>Klik tombol Generate</strong> untuk membuat 3 versi prompt</div>
-      </div>
-      <div class="howto-step">
-        <div class="step-num">3</div>
-        <div class="step-text"><strong>Copy salah satu prompt</strong> yang paling sesuai style-mu</div>
-      </div>
-      <div class="howto-step">
-        <div class="step-num">4</div>
-        <div class="step-text"><strong>Paste ke AI Generator</strong> seperti Gemini, Midjourney, atau DALL-E — lalu attach foto referensi</div>
-      </div>
-    </div>
-
-    <!-- OUTPUT SECTION -->
-    <div class="output-section" id="output-section">
-      <!-- Empty state -->
-      <div class="howto-card" id="empty-state">
-        <div class="empty-state">
-          <div class="empty-icon">🖼️</div>
-          <div class="empty-text">Prompt akan muncul di sini setelah kamu klik <strong style="color:var(--text)">Generate</strong>. Kamu akan mendapatkan 3 versi prompt untuk berbagai gaya desain!</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- TIPS -->
-    <div class="howto-card">
-      <div class="howto-title">💡 Tips Hasil Maksimal</div>
-      <ul class="tips-list">
-        <li><span class="tip-icon">📸</span>Selalu lampirkan <strong style="color:var(--text)">foto referensi</strong> desain ke AI untuk hasil layout yang lebih akurat</li>
-        <li><span class="tip-icon">🔵</span><strong style="color:var(--text)">Versi 1</strong> cocok untuk brand yang ingin tampil bersih & premium di IG</li>
-        <li><span class="tip-icon">🟡</span><strong style="color:var(--text)">Versi 2</strong> paling efektif untuk hard selling & promo dengan visual 3D bold</li>
-        <li><span class="tip-icon">🟣</span><strong style="color:var(--text)">Versi 3</strong> ideal untuk brand level up, terlihat seperti majalah premium</li>
-        <li><span class="tip-icon">🔁</span>Coba beberapa kali dengan prompt yang sama — hasilnya bisa berbeda-beda</li>
-      </ul>
-    </div>
-
-  </div>
 </div>
-
-<!-- FOOTER -->
-<div class="footer">
-  ⚡ Master Ad Generator Pro — Dibuat untuk UMKM Indonesia yang ingin iklan keren tanpa biaya desainer<br>
-  <span style="opacity:0.5;font-size:11px;margin-top:4px;display:block;">Gunakan prompt ini di Gemini Imagen, Midjourney, Leonardo AI, DALL-E, atau AI image generator lainnya</span>
 </div>
-
-<!-- TOAST -->
-<div class="toast" id="toast">✓ Berhasil di-copy ke clipboard!</div>
+<div class="toast" id="toast"></div>
 
 <script>
-function toggleCustom(selId, wrapId) {
-  const sel = document.getElementById(selId);
-  const wrap = document.getElementById(wrapId);
-  if (!wrap) return;
-  wrap.style.display = sel.value === 'CUSTOM' ? 'block' : 'none';
+
+
+function getSz(){
+  const r=document.querySelector('input[name="sz"]:checked');
+  if(!r)return{dim:'1080x1350',ratio:'4:5',label:'Instagram Feed'};
+  const m={'1080x1350':{ratio:'4:5',label:'Instagram Feed Portrait'},'1024x1536':{ratio:'2:3',label:'Portrait 2:3'},'1080x1920':{ratio:'9:16',label:'Instagram Story / Reels'}};
+  return{dim:r.value,...(m[r.value]||{ratio:'4:5',label:'Feed'})};
+}
+function setLabel(inp,id){if(inp.files.length>0)document.getElementById(id).innerText='✓ '+inp.files[0].name;}
+function g(id){return(document.getElementById(id)||{}).value||'';}
+function hf(id){const e=document.getElementById(id);return e&&e.files&&e.files.length>0;}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600);}
+function copyPrompt(btn,id){
+  const ta=document.getElementById(id);if(!ta)return;
+  navigator.clipboard.writeText(ta.value).then(()=>{
+    const o=btn.textContent;btn.textContent='✓ Tersalin!';btn.classList.add('ok');
+    showToast('✓ Prompt disalin — paste ke ChatGPT / Gemini!');
+    setTimeout(()=>{btn.textContent=o;btn.classList.remove('ok');},2000);
+  });
 }
 
-function setColor(selId, val, chipEl) {
-  const sel = document.getElementById(selId);
-  if (!sel) return;
-  sel.value = val;
-  const allChips = chipEl.parentElement.querySelectorAll('.color-chip');
-  allChips.forEach(c => c.classList.remove('active'));
-  chipEl.classList.add('active');
-}
-
-function updateColorChips() {}
-
-function getVal(selId, manualId) {
-  const sel = document.getElementById(selId);
-  if (!sel) return '';
-  return sel.value === 'CUSTOM' ? (document.getElementById(manualId)?.value || '') : sel.value;
-}
-
-function toTitleCase(str) {
-  return str.toLowerCase().replace(/\b\w/g, s => s.toUpperCase());
-}
-
-function addRow() {
-  const container = document.getElementById('menu-container');
-  const row = document.createElement('div');
-  row.className = 'menu-row';
-  row.innerHTML = `
-    <input type="text" class="p-name" placeholder="Nama menu...">
-    <input type="text" class="p-price" placeholder="Harga...">
-    <button class="remove-row-btn" onclick="removeRow(this)" title="Hapus baris">×</button>
-  `;
-  container.appendChild(row);
-  row.querySelector('.p-name').focus();
-}
-
-function removeRow(btn) {
-  const rows = document.querySelectorAll('#menu-container .menu-row');
-  if (rows.length <= 1) {
-    showToast('⚠️ Minimal 1 menu harus ada!', true);
-    return;
+const STEP4_LABELS=['Data Gaya 1','Data Gaya 2','Data Gaya 3','Data Gaya 4','Data Gaya 5'];
+function switchGaya(){
+  const v=document.querySelector('input[name="gaya"]:checked').value;
+  [1,2,3,4,5].forEach(i=>{const e=document.getElementById('s'+i);if(e)e.classList.toggle('on',String(i)===v);});
+  const lbl=document.getElementById('step4lbl');
+  if(lbl)lbl.textContent=STEP4_LABELS[parseInt(v)-1]||'Data';
+  // Auto-select size recommendation per gaya
+  if(v==='1'){
+    const portrait=document.querySelector('input[name="sz"][value="1024x1536"]');
+    if(portrait) portrait.checked=true;
+  } else {
+    const feed=document.querySelector('input[name="sz"][value="1080x1350"]');
+    if(feed) feed.checked=true;
   }
-  btn.closest('.menu-row').remove();
+  if(g('brand').trim())autoFill();
 }
 
-function showToast(msg, isWarn) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.style.background = isWarn ? '#2a1a1a' : '#1a2a1a';
-  t.style.borderColor = isWarn ? 'var(--red)' : 'var(--green)';
-  t.style.color = isWarn ? 'var(--red)' : 'var(--green)';
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2800);
+let _af=false;
+function autoFill(){
+  if(_af)return;_af=true;setTimeout(()=>{_af=false;},300);
+  const brand=g('brand').trim();if(!brand)return;
+  const b=brand.toLowerCase();
+  const gaya=document.querySelector('input[name="gaya"]:checked').value;
+
+  const isFood=/bakso|mie|nasi|ayam|soto|sate|burger|pizza|seblak|cilok|martabak|gorengan|warung|dapur|masak|catering|kedai|seafood|bebek|geprek|rendang|padang|pempek|sambal/.test(b);
+  const isDrink=/kopi|cafe|coffee|teh|juice|jus|minuman|boba|bubble|susu|milkshake|smoothie|matcha|coklat|frappe|latte|espresso|cendol/.test(b);
+  const isSkin=/skin|glow|serum|beauty|cream|lotion|sabun|kosmetik|collagen|whitening|moisturizer|toner|masker|sunscreen/.test(b);
+  const isFashion=/fashion|hijab|baju|outfit|distro|clothing|sepatu|tas|kaos|kemeja|celana|jaket|hoodie|dress|gamis|batik/.test(b);
+  const isLaundry=/laundry|cuci|setrika|dry clean/.test(b);
+  const isHP=/service hp|servis hp|repair hp|handphone|ponsel|gadget|elektronik/.test(b);
+  const isBengkel=/bengkel|motor|mobil|tambal ban|otomotif|sparepart|oli/.test(b);
+  const isSalon=/salon|barbershop|barber|pangkas|potong rambut|spa|kecantikan|nail/.test(b);
+  const isEdu=/kursus|les|bimbel|sekolah|kampus|universitas|pelatihan|training|workshop/.test(b);
+
+  function fi(id,val){const e=document.getElementById(id);if(e&&!e.value.trim())e.value=val;}
+  function fc(id,val){const e=document.getElementById(id);if(e&&!e.value)e.value=val;}
+
+  let d={};
+  if(isFood||isDrink){
+    d={menu:brand,judul:'PROMO SPESIAL HARI INI!',sub:isDrink?'Segar, Nikmat, Bikin Ketagihan':'Cita rasa autentik yang bikin nagih',
+      harga:isDrink?'Mulai Rp 12.000':'Mulai Rp 15.000',cta:'PESAN SEKARANG',
+      b1:isDrink?'Bahan Segar Premium':'Bahan Segar Setiap Hari',b2:'Tanpa Pengawet',b3:isDrink?'Varian Rasa Lengkap':'Porsi Generous',b4:'Tersedia Delivery',
+      hl1:brand.toUpperCase(),hl2:isDrink?'SEGAR':'ENAK & JUARA',
+      visual:isDrink?brand+' — minuman segar, es premium, garnish buah, tropical':'Sajian '+brand+' — food photography premium, steam, full appetizing',
+      cm:'Bright Warm Red',ca:'Golden Yellow',
+      g6l1:'Taste The',g6l2:brand.toUpperCase(),g6badge:'Flavor',g6hero:'chef atau owner dengan produk unggulan',g6card:'rating pelanggan 5 bintang'};
+  } else if(isSkin){
+    d={menu:brand+' Serum',judul:'KULIT GLOWING IMPIANMU',sub:'Formula premium untuk kulit cerah dan sehat',
+      harga:'Mulai Rp 89.000',cta:'BELI SEKARANG',
+      b1:'BPOM Tersertifikasi',b2:'Aman Kulit Sensitif',b3:'Hasil Nyata 7 Hari',b4:'Formula Dermatologist',
+      hl1:'KULIT GLOWING',hl2:'IMPIANMU',
+      visual:'Produk skincare '+brand+' kemasan elegan, soft beauty lighting, clean white background',
+      cm:'Pure White',ca:'Rose Gold',
+      g6l1:'Your Skin',g6l2:'GLOWING',g6badge:'Solutions',g6hero:'model kulit glowing memegang produk',g6card:'before/after kulit 7 hari'};
+  } else if(isFashion){
+    d={menu:'Koleksi '+brand,judul:'TAMPIL KEREN SETIAP HARI',sub:'Koleksi terkini untuk penampilan selalu stylish',
+      harga:'Mulai Rp 99.000',cta:'LIHAT KOLEKSI',
+      b1:'Material Premium',b2:'Jahitan Rapi & Kuat',b3:'Desain Eksklusif',b4:'Free Ongkir',
+      hl1:'TAMPIL KEREN',hl2:'SETIAP HARI',
+      visual:'Produk fashion '+brand+' — editorial fashion photography, clean studio',
+      cm:'Charcoal Black',ca:'Pure White',
+      g6l1:'Style Your',g6l2:'FASHION',g6badge:'Collection',g6hero:'model editorial dengan produk',g6card:'lookbook koleksi terbaru'};
+  } else if(isLaundry){
+    d={menu:'Laundry Express',judul:'LAUNDRY EXPRESS',sub:'Bersih, Wangi, dan Siap Dipakai Dalam Waktu Singkat',
+      harga:'Mulai Rp 4.000/kg',cta:'CUCI SEKARANG \u2192',
+      b1:'Antar Jemput Gratis',b2:'Cuci Kilat 24 Jam',b3:'Wangi Tahan Lama',b4:'Deterjen Premium',
+      hl1:'LAUNDRY',hl2:'EXPRESS',
+      visual:'Premium freshly washed white clothes, luxury folded shirts, soft white towels, modern washing machine, fresh clean atmosphere',
+      cm:'Pure White',ca:'Electric Blue',
+      g6l1:'Trusted',g6l2:'LAUNDRY',g6badge:'Service',g6hero:'staff laundry profesional dengan pakaian bersih',g6card:'before/after cucian atau rating pelanggan'};
+  } else if(isHP){
+    d={menu:'Service HP & Gadget',judul:'SERVICE HP PROFESIONAL',sub:'Semua merk ditangani, garansi resmi, harga transparan',
+      harga:'Mulai Rp 50.000',cta:'SERVIS SEKARANG',
+      b1:'Teknisi Berpengalaman',b2:'Garansi Pengerjaan',b3:'Spare Part Original',b4:'Harga Transparan',
+      hl1:'SERVICE HP',hl2:'PROFESIONAL',
+      visual:'Hands of a professional technician repairing a smartphone, clean organized workbench, precision tools',
+      cm:'Off-White / Cream',ca:'Electric Blue',
+      g6l1:'Professional',g6l2:'REPAIR',g6badge:'Service',g6hero:'teknisi profesional dengan tools di meja servis',g6card:'before/after HP atau testimoni pelanggan'};
+  } else if(isBengkel){
+    d={menu:'Servis Kendaraan',judul:'BENGKEL TERPERCAYA',sub:'Servis kendaraan profesional, hasil terjamin',
+      harga:'Mulai Rp 35.000',cta:'SERVIS SEKARANG',
+      b1:'Mekanik Bersertifikat',b2:'Spare Part Original',b3:'Garansi Servis',b4:'Harga Transparan',
+      hl1:'BENGKEL',hl2:'TERPERCAYA',
+      visual:'Professional mechanic hands working on vehicle engine, clean organized garage, premium tools',
+      cm:'Off-White / Cream',ca:'Bright Warm Red',
+      g6l1:'Trusted',g6l2:'BENGKEL',g6badge:'Service',g6hero:'mekanik profesional berseragam di bengkel bersih',g6card:'before/after kendaraan servis'};
+  } else if(isSalon){
+    d={menu:'Perawatan Premium',judul:'TAMPIL PERCAYA DIRI',sub:'Perawatan profesional untuk penampilan terbaik',
+      harga:'Mulai Rp 35.000',cta:'BOOKING SEKARANG',
+      b1:'Stylist Berpengalaman',b2:'Produk Premium',b3:'Hasil Memuaskan',b4:'Suasana Nyaman',
+      hl1:'TAMPIL',hl2:'PERCAYA DIRI',
+      visual:'Modern clean salon interior, premium styling tools, professional atmosphere, soft elegant lighting',
+      cm:'Pure White',ca:'Rose Gold',
+      g6l1:'Look Your',g6l2:'BEST',g6badge:'Beauty',g6hero:'stylist profesional atau model hasil styling',g6card:'before/after hasil styling'};
+  } else if(isEdu){
+    d={menu:'Program '+brand,judul:'BELAJAR LEBIH MUDAH',sub:'Metode terbaik untuk hasil belajar maksimal',
+      harga:'Mulai Rp 150.000',cta:'DAFTAR SEKARANG',
+      b1:'Pengajar Berpengalaman',b2:'Metode Terbukti',b3:'Materi Lengkap',b4:'Jadwal Fleksibel',
+      hl1:'BELAJAR',hl2:'BERSAMA KAMI',
+      visual:'Buku, stationery, dan suasana belajar modern yang inspiratif',
+      cm:'Soft Blue-White',ca:'Electric Blue',
+      g6l1:'Learn With',g6l2:brand.toUpperCase(),g6badge:'Academy',g6hero:'pengajar profesional atau siswa belajar semangat',g6card:'prestasi atau testimoni siswa sukses'};
+  } else {
+    d={menu:'Layanan '+brand,judul:brand.toUpperCase(),sub:'Layanan profesional berkualitas tinggi untuk kebutuhan kamu',
+      harga:'Mulai Rp 99.000',cta:'HUBUNGI KAMI',
+      b1:'Tim Profesional',b2:'Harga Terjangkau',b3:'Hasil Berkualitas',b4:'Garansi Kepuasan',
+      hl1:brand.toUpperCase(),hl2:'TERBAIK',
+      visual:'Visual premium yang merepresentasikan '+brand+', professional commercial photography',
+      cm:'Off-White / Cream',ca:'Electric Blue',
+      g6l1:'Welcome To',g6l2:brand.toUpperCase(),g6badge:'Services',g6hero:'owner atau tim profesional '+brand,g6card:'portfolio terbaik atau testimoni pelanggan'};
+  }
+
+  if(gaya==='1'){fi('g1_menu',d.menu);fi('g1_judul',d.judul);fi('g1_sub',d.sub);fi('g1_harga',d.harga);fi('g1_cta',d.cta);}
+
+  else if(gaya==='2'){fi('g3_hl',d.judul);fi('g3_sub',d.sub);fi('g3_harga',d.harga);fi('g3_cta',d.cta);fi('g3_visual',d.visual);}
+  else if(gaya==='3'){fi('g4_l1',d.menu||brand.toUpperCase());fi('g4_l2','JUARA');fi('g4_sub',d.sub);fi('g4_harga',d.harga);fi('g4_cta',d.cta);}
+  else if(gaya==='4'){fi('g5_l1',d.menu||brand.toUpperCase());fi('g5_l2','JUARA');fi('g5_sub',d.sub);fi('g5_harga',d.harga);fi('g5_cta',d.cta);}
+  else if(gaya==='5'){fi('g6_l1',d.g6l1||'Professional');fi('g6_l2',d.g6l2||brand.toUpperCase());fi('g6_badge',d.g6badge||'Services');fi('g6_sub',d.sub);fi('g6_b1',d.b1);fi('g6_b2',d.b2);fi('g6_b3',d.b3);fi('g6_b4',d.b4);fi('g6_cta',d.cta||'CONTACT US');fi('g6_hero',d.g6hero);fi('g6_card',d.g6card);}
+  fc('colorMain',d.cm||'');fc('colorAccent',d.ca||'');
 }
 
-function copyPrompt(textareaId, btn) {
-  const ta = document.getElementById(textareaId);
-  if (!ta || !ta.value.trim()) return;
-  navigator.clipboard.writeText(ta.value).then(() => {
-    const orig = btn.textContent;
-    btn.textContent = '✓ Tersalin!';
-    btn.classList.add('copied');
-    showToast('✓ Prompt berhasil di-copy! Sekarang paste ke AI Generator kamu.');
-    setTimeout(() => {
-      btn.textContent = orig;
-      btn.classList.remove('copied');
-    }, 2500);
-  });
+function generate(){
+  const gaya=document.querySelector('input[name="gaya"]:checked').value;
+  const sz=getSz();
+  const brand=g('brand')||'[NAMA BRAND]';
+  const wa=g('wa');const ig=g('ig');const tt=g('tt');
+  const cm=g('colorMain')||'Sesuai produk';
+  const ca=g('colorAccent')||'Oranye';
+  let prompt='',label='';
+
+  if(gaya==='1'){
+    label='Gaya 1 — Promo Makanan/Minuman';
+    const menu=g('g1_menu')||'[NAMA MENU]';
+    const judul=g('g1_judul')||'[JUDUL UTAMA]';
+    const sub=g('g1_sub')||'[TEKS PENDUKUNG]';
+    const harga=g('g1_harga')||'[HARGA]';
+    const cta=g('g1_cta')||'PESAN SEKARANG';
+    const ref=hf('g1_foto')?'\nNote: Attached reference image — use ONLY as layout and feel guide, not as text copy guide.':'';
+    prompt='[NAMA BRAND : '+brand+']\n\n[NAMA MENU : '+menu+']\n\n[HARGA : '+harga+']\n\n[NOMOR WA : '+wa+']\n\n[JUDUL UTAMA : '+judul+']\n\n[TEKS PENDUKUNG : '+sub+']\n\n[TOMBOL KETERANGAN : '+cta+']\n\n[AKUN INSTAGRAM : '+ig+']\n\n[WARNA LATAR : '+cm+']\n\n[WARNA AKSEN : '+ca+']\n'+ref+'\nCreate a premium food promo poster in '+sz.ratio+' aspect ratio ('+sz.dim+' pixels) using the attached reference image only as a layout and feel guide, not as a text copy guide. Keep the same promotional energy and overall hierarchy, but make the final result feel more minimal, cleaner, and more breathable with clear negative space. Prioritize a polished Instagram-ready ad look that still feels bold and selling.\n\nUse [NAMA MENU] as the hero subject and make it appetizing, realistic, and strongly matched to the food type entered. The food must stay the main focus, but give it more room to breathe so the layout feels cleaner and less crowded. Use photo-realistic food photography style, dynamic plating, and rich texture. Keep the general reference logic: brand at top-left, main headline in the upper-left or upper-middle, price badge at top-right, hero food centered, product name large and readable near the lower-right, and supporting info placed neatly in the lower area.\n\nDesign direction:\n- bold rounded typography\n- thick white outline on key text\n- orange depth shadow or warm shadow effect\n- premium promo atmosphere\n- subtle smoke / steam / heat effect only where it supports the food\n- light scribble or hand-drawn accent lines, used sparingly\n- a few minimal floating food-themed decorative elements that match the menu, used sparingly\n- more negative space, while keeping it highly commercial\n- use fewer but larger typography elements instead of many small crowded elements\n- clean, modern, high-contrast, eye-catching social media poster\n\nBackground:\n- use [WARNA LATAR] as the base background tone\n- add a soft gradient, subtle motion texture, and delicate patterning\n- use [WARNA AKSEN] for highlights, badge accents, shadows, and small decorative details\n- maintain excellent readability for all text\n\nText and hierarchy rules:\n- [NAMA BRAND] appears at the top-left in a clean premium style\n- [JUDUL UTAMA] appears significantly larger, bolder, more attention-grabbing\n- [TEKS PENDUKUNG] sits naturally under or near the headline as a proper supporting line\n- [HARGA] appears inside a circular badge at the top-right, highly visible\n- [NAMA MENU] appears larger and visually stronger near the lower-right or lower-middle\n- [NOMOR WA] appears near the bottom with the official WhatsApp logo (authentic green-and-white)\n- [AKUN INSTAGRAM] appears with the official Instagram logo (authentic gradient)\n- [TOMBOL KETERANGAN] appears as a rounded integrated call-to-action element\n- if any placeholder is empty, omit that element completely\n\nBrand icon accuracy:\n- WhatsApp logo: authentic green and white\n- Instagram logo: authentic gradient\n- do not recolor social media logos\n\nQuality: sharp, detailed, premium, polished, commercial design. No extra random text, no watermark, no logo clutter. Make the aspect ratio '+sz.dim+' pixels.';
+  }
+  else if(gaya==='2'){
+    label='Gaya 2 — Commercial Campaign';
+    const hl=g('g3_hl')||'[HEADLINE]';const sub=g('g3_sub')||'[SUBHEADLINE]';
+    const harga=g('g3_harga')||'[HARGA]';const cta=g('g3_cta')||'HUBUNGI KAMI';
+    const visual=g('g3_visual')||'[VISUAL UTAMA]';
+    const ref=hf('g3_foto')?'Use the attached reference image only as inspiration.\n\n':'';
+    prompt='Create a premium commercial campaign poster in exactly '+sz.dim+' pixels (Aspect Ratio: '+sz.ratio+').\n\n'+ref+'BRAND:\n'+brand+'\n\nHEADLINE:\n'+hl+'\n\nSUBHEADLINE:\n'+sub+'\n\nPRICE:\n'+harga+'\n\nCTA:\n'+cta+'\n\nWHATSAPP:\n'+wa+'\n\nINSTAGRAM:\n'+ig+'\n\nPRIMARY COLOR:\n'+cm+'\n\nACCENT COLOR:\n'+ca+'\n\nMAIN VISUAL:\n'+visual+'\nOne dominant hero scene. Only 1\u20133 core products or service-related objects. Focus on one clear visual story. No clutter. No excessive elements. No collage.\n\nSTYLE:\nModern Commercial Campaign\nProfessional Advertising Design\nPremium Brand Promotion\nCommercial Social Media Campaign\nClean Yet Energetic\nPremium Marketing Visual\nINDONESIAN COMMERCIAL CAMPAIGN STYLE\n\nDESIGN PHILOSOPHY:\nThe viewer should immediately understand: What is being sold. Who it is for. Why it is valuable. How much it costs.\nCreate impact through hierarchy and composition. Not through excessive effects.\n\nHEADLINE RULES:\nDisplay headline in two lines when possible. Second line larger than first line.\nBold white typography. Clean sans-serif. Subtle shadow only. Minimal dimensional depth.\nNo heavy 3D. No metallic text. No gaming style.\nHeadline occupies approximately 15\u201320% of the canvas. Hero visual remains larger than headline.\n\nHERO VISUAL RULES:\nHero scene occupies approximately 55\u201360% of the layout.\nHero object should feel realistic and premium.\nLarge enough to become the primary focal point. Focus on one strong visual story.\n\nPRICE RULES:\nDisplay price near hero object. Integrate naturally into composition.\nNo discount sticker. No marketplace flash sale style. No promo burst.\n\nBACKGROUND RULES:\nPremium gradient background. Smooth color transition. Clean studio atmosphere.\nSoft ambient lighting. Very subtle spotlight behind hero object.\nAvoid: light streaks, speed lines, radial rays, energy effects, dramatic glow, neon effects, visual noise.\n\nVISUAL BALANCE:\n5% Logo | 15% Headline | 60% Hero Scene | 10% Price | 5% CTA | 5% Contact\n\nSTRICTLY AVOID:\nOvercrowded layouts, too many products, marketplace style, Shopee style, Tokopedia style, cheap flyer appearance, heavy glow effects, collage compositions.\n\nQUALITY: Premium commercial campaign quality. Instagram-ready. Award-winning promotional design. Strong visual hierarchy. Highly sellable. Modern Indonesian advertising aesthetic.\n\nCRITICAL: Canvas size exactly '+sz.dim+' pixels. Aspect ratio exactly '+sz.ratio+'. Hero scene must be the dominant visual element.';
+  }
+  else if(gaya==='3'){
+    label='Gaya 3 — Food Franchise Lock';
+    const l1=g('g4_l1')||'[NAMA PRODUK]';const l2=g('g4_l2')||'JUARA';
+    const sub=g('g4_sub')||'[DESKRIPSI]';const harga=g('g4_harga')||'[HARGA]';
+    const coret=g('g4_coret')||'';const cta=g('g4_cta')||'PESAN SEKARANG';
+    const ref=hf('g4_foto')?'Note: Attached product photo — use as the hero food visual reference.\n\n':'';
+    prompt='Create a professional Indonesian food promotion poster in exactly '+sz.dim+' pixels ('+sz.ratio+').\n\n'+ref+'The composition structure, visual hierarchy, spacing, proportions, focal points, promotional atmosphere, and franchise-style food advertising layout must remain IDENTICAL across all future variations.\n\nOnly replace: Brand Name, Product Name, Product Photo, Price, Original Price, CTA, Contact Information, Product Description. Do not change layout architecture.\n\nLAYOUT LOCK (MANDATORY)\nTop Area (10%): Brand Logo Area\nUpper Middle (18%): Headline Area\nCenter (47%): Hero Food Area\nLower Left (15%): Price Area\nLower Right (10%): CTA + Contact Area\n\nMaintain this exact hierarchy:\nFood must always remain the strongest focal point.\nPrice must always be the second strongest focal point.\nHeadline must always be the third strongest focal point.\n\nBRAND\n'+brand+'\n\nHEADLINE\nLine 1:\n'+l1+'\n\nLine 2:\n'+l2+'\n\nSecond line slightly larger. Typography: Bold white, Soft shadow, Minimal depth. No heavy 3D, No chrome, No gaming style.\nHeadline occupies approximately 15\u201318% of canvas.\n\nSUBHEADLINE\n'+sub+'\n\nPRICE AREA\nDisplay:\nHanya\n'+harga+'\n\n'+(coret?'Original Price:\n'+coret+'\n\nOriginal price uses simple strike-through.\n':'')+'Large bold numbers. Friendly Indonesian culinary advertising style.\nNo marketplace discount badges. No flash sale elements. No percentage stickers.\n\nCTA\nRounded yellow button. Text: '+cta+'\n\nCONTACT\nWhatsApp: '+wa+'\nInstagram: '+ig+'\nSmall and organized. Do not compete with food or price.\n\nHERO FOOD RULES\nOne hero food only. Large food presentation. Occupy approximately 45\u201350% of canvas.\nFood must appear: Fresh, Crispy, Juicy, Appetizing.\nCommercial food photography quality. Professional Indonesian franchise advertising quality.\nNo collage. No multiple dishes. No floating ingredients overload.\n\nBACKGROUND\nBright warm red gradient background. Soft spotlight behind food. Soft vignette. Subtle bokeh circles.\nClean atmosphere. Fresh and cheerful. No dark mood. No luxury branding feel. No glowing rays. No speed lines.\n\nSUPPORTING ELEMENTS\nMaximum 3 supporting elements only (e.g., small chili peppers, small steam, simple best seller badge).\n\nVISUAL BALANCE\n10% Brand | 18% Headline | 47% Food Hero | 15% Price | 10% CTA + Contact\n\nNEGATIVE PROMPT\nLuxury branding, corporate style, minimalist layout, dark background, heavy glow, light streaks, marketplace style, flash sale badges, too many stickers, too many icons, too many ingredients, collage composition, overcrowded layout, messy spacing, small food, weak hierarchy, complex background, excessive effects.\n\nCanvas size: exactly '+sz.dim+' pixels. Aspect ratio: exactly '+sz.ratio+'. Instagram Feed only.';
+  }
+  else if(gaya==='4'){
+    label='Gaya 4 — Master Franchise';
+    const l1=g('g5_l1')||'[LINE 1]';const l2=g('g5_l2')||'JUARA';
+    const sub=g('g5_sub')||'[SUBHEADLINE]';const harga=g('g5_harga')||'[HARGA]';
+    const coret=g('g5_coret')||'';const cta=g('g5_cta')||'PESAN SEKARANG';
+    const ref=hf('g5_foto')?'Note: Attached product photo — use as the hero food/beverage visual reference.\n\n':'';
+    prompt='Create a professional Indonesian food or beverage promotion poster in exactly '+sz.dim+' pixels ('+sz.ratio+').\n\n'+ref+'========================================\nMASTER FRANCHISE PROMOTION TEMPLATE\n\nThe design must resemble a successful Indonesian food franchise advertising campaign.\nFast visual scanning. Strong hierarchy. High commercial appeal. Instagram-ready. UMKM naik kelas quality.\n========================================\n\nVISUAL HIERARCHY\n1. Hero Product  2. Headline  3. Price  4. CTA  5. Contact  6. Logo\nThe viewer should understand the offer within one second.\n\nLOGO\nSmall logo. Top center. Approximately 5\u20138% visual dominance.\n'+brand+'\nLogo functions only as brand identification. Never compete with headline or product.\n\nHEADLINE\nDisplay:\n'+l1+'\n\nDisplay:\n'+l2+'\n\nHeadline centered. Occupies approximately 80\u201390% of canvas width.\nLine 2 is approximately 3x larger than Line 1.\nBold white typography. Soft shadow only. Very subtle depth.\nNo metallic effect. No chrome effect. No gaming typography. No luxury typography.\n\nHEADLINE DYNAMIC ANGLE\nThe second line should have a very subtle upward angle toward the right side.\nApproximately 2\u20134 degrees. Very subtle perspective. Professional franchise advertising feel.\nDo not create curved/warped/arched typography.\n\nSUBHEADLINE\nLocated directly below headline. Compact spacing. Small yellow brush highlight.\n'+sub+'\n\nHERO PRODUCT\nOne hero product only. Occupies approximately 45\u201350% of the composition. Centered.\nThe strongest focal point. Sits directly beneath the headline. Minimal vertical gap.\nCommercial food photography quality. Fresh. Appetizing. Highly sellable.\n\nPRICE\nLocated lower left.\nDisplay:\nHanya\n'+harga+'\n\n'+(coret?'Original Price: '+coret+' (simple strike-through)\n':'')+'No discount sticker. No price box. No flash sale badge. Large bold promotional numbers.\n\nCTA\nLocated lower right. Rounded yellow button. Friendly. Modern. Clean.\nText: '+cta+'\n\nCONTACT\nLocated bottom center.\nWhatsApp: '+wa+'\nInstagram: '+ig+'\nSmall. Neat. Professional.\n\nBACKGROUND\nFood: Bright warm red gradient.\nBeverage: Bright tropical orange gradient.\nSoft spotlight behind product. Subtle vignette. Soft bokeh circles. Clean cheerful commercial atmosphere.\n\nSUPPORTING ELEMENTS\nMaximum 3 supporting elements (small chili peppers / small steam / small ice cubes / small fruit slices / simple bestseller badge).\n\nNEGATIVE PROMPT\nCorporate branding, luxury branding, premium branding, minimalist design, dark background, heavy glow, light streaks, energy effects, speed lines, marketplace style, Shopee style, Tokopedia style, flash sale style, large discount stickers, price cards, price boxes, too many badges, too many icons, too many ingredients, fruit explosion, ingredient explosion, collage composition, messy hierarchy, weak focal point, small product, overcrowded layout, complex background, heavy shadows, curved headline, warped typography, exaggerated perspective, extreme text rotation, bent headline, arched headline.\n\nCanvas size: exactly '+sz.dim+' pixels. Aspect ratio: exactly '+sz.ratio+'. Instagram Feed only. NOT Story format. NOT 9:16.';
+  }
+  else if(gaya==='5'){
+    label='Gaya 5 — Swiss Editorial';
+    const l1=g('g6_l1')||'Professional';const l2=g('g6_l2')||brand.toUpperCase();
+    const badge=g('g6_badge')||'Services';const sub=g('g6_sub')||'[DESKRIPSI]';
+    const b1=g('g6_b1')||'Fast Response';const b2=g('g6_b2')||'Professional Team';
+    const b3=g('g6_b3')||'Experienced';const b4=g('g6_b4')||'Trusted Service';
+    const cta=g('g6_cta')||'CONTACT US';const web=g('g6_web');
+    const hero=g('g6_hero')||'professional person related to the business';
+    const card=g('g6_card')||'featured service showcase';
+    const webLine=web?' | Website: '+web:'';
+    const ref=hf('g6_foto')?'Use the attached reference image only as inspiration for overall composition and quality.\n\n':'';
+    prompt='Create a premium modern business advertising poster.\n\nCanvas size: '+sz.dim+' px.\nAspect ratio: '+sz.ratio+' portrait.\n\n'+ref+'Behance featured project.\nSwiss editorial layout.\nPremium branding flyer.\nLuxury whitespace.\nModern commercial design.\n\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\nLAYOUT SYSTEM\n\n45% left content area.\n55% right hero area.\nStrong visual hierarchy.\nBalanced composition.\nProfessional spacing.\nTypography-first design.\n\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\nTOP SECTION\n\nTop left: Company logo \u2014 '+brand+'\nTop center: Three small category icons related to the business.\nTop right: Business wordmark.\nMinimal. Clean. Professional.\n\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\nHEADLINE SYSTEM\n\nThree-level hierarchy.\n\nLine 1 (Small introductory \u2014 medium size, black typography):\n'+l1+'\n\nLine 2 (Main headline \u2014 LARGEST element, extra bold, modern geometric sans-serif):\n'+l2+'\n\nLine 3 (Gradient badge \u2014 white bold text inside rounded rectangle with gradient background):\n'+badge+'\n\nIMPORTANT: Badge width approximately 65\u201375% of the main headline width. Badge acts as accent, not a second headline.\n\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\nDESCRIPTION\n\n'+sub+'\nMaximum 4 lines. Readable. Clean. Professional.\n\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\nBENEFIT LIST\n\n\u2022 '+b1+'\n\u2022 '+b2+'\n\u2022 '+b3+'\n\u2022 '+b4+'\n\nNo cards. No feature grid. No clutter.\n\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\nCTA\n\nLarge rounded capsule button. Strong gradient accent. White bold typography. Premium shadow.\nText: '+cta+'\n\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\nHERO SECTION\n\n'+hero+'\nHero must visually represent the business of '+brand+'.\nHero occupies center-right area. Hero height approximately 35\u201345% of canvas.\nHero must not stretch vertically. Hero and headline should have equal visual balance.\n\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\nSHOWCASE CARD\n\nOne floating showcase card. Rounded corners. Soft shadow. Premium presentation.\nContent: '+card+'\nCard overlaps hero slightly. Only one card.\n\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\nCOLOR SYSTEM\n\n85% white. 10% black. 5% accent gradient.\nPrimary Accent: '+cm+'\nSecondary Accent: '+ca+'\nGradient is mandatory. Use gradients only for: Headline badge, CTA, Footer, Small accents.\nAvoid excessive glow. Avoid flat accent colors.\n\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\nFOOTER\n\nSlim gradient footer strip. Height 6\u20138% of canvas.\nInstagram: '+ig+' | WhatsApp: '+wa+webLine+'\nSimple icons. Premium spacing. Clean alignment. Modern branding.\n\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\nTYPOGRAPHY\n\nSatoshi / General Sans / Neue Montreal / Geist / Gilroy.\nModern geometric sans-serif. Luxury editorial typography. Strong hierarchy. Perfect spacing.\n\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\nSTYLE\n\nBehance featured project. Swiss editorial design. Portfolio showcase aesthetic.\nPremium branding presentation. Commercial advertising. Modern local business marketing.\nClean hierarchy. Human-centered composition. Awwwards quality. Ultra detailed. 8K.\n\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\nNEGATIVE PROMPT\n\ncrowded flyer, cheap marketing flyer, canva template, busy composition, oversized footer, oversized badge, multiple hero objects, dashboard UI, social media profile focus, oversized smartphone, too many floating elements, service grid, cyberpunk, gaming style, neon overload, bad typography, poor spacing, low quality, template look, stock flyer style\n\nCanvas size: '+sz.dim+' px. Aspect ratio: '+sz.ratio+'.';
+  }
+
+  const outBody=document.getElementById('outBody');
+  outBody.innerHTML='';
+  const taId='ta-result';
+  const box=document.createElement('div');
+  box.className='pr-wrap';
+  box.innerHTML='<div class="pr-hd"><div class="pr-left"><span class="pr-badge">'+gaya+'</span><span class="pr-title">'+label+' \u00b7 '+sz.dim+'px</span></div><button class="btn-copy" onclick="copyPrompt(this,\''+taId+'\')">Copy Prompt</button></div><textarea id="'+taId+'" class="pta" readonly></textarea>';
+  outBody.appendChild(box);
+  document.getElementById(taId).value=prompt;
+  showToast('\u2713 Prompt siap! Copy \u2192 paste ke ChatGPT / Gemini');
+  document.getElementById('outCard').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-function updateCharCount(taId, countId) {
-  const ta = document.getElementById(taId);
-  const ct = document.getElementById(countId);
-  if (ta && ct) ct.textContent = ta.value.length + ' karakter';
-}
-
-function generateAll() {
-  const brand = document.getElementById('brand').value.trim();
-  if (!brand) { showToast('⚠️ Nama brand wajib diisi!', true); document.getElementById('brand').focus(); return; }
-  
-  const rawJudul = getVal('judul_select','judul_manual');
-  const sub = document.getElementById('sub').value.trim();
-  const warna_latar = getVal('warna_latar','warna_latar_manual');
-  const warna_aksen = getVal('warna_aksen','warna_aksen_manual');
-  const wa = document.getElementById('wa').value.trim();
-  const ig = document.getElementById('ig').value.trim();
-  const tt = document.getElementById('tt').value.trim();
-  const cta = getVal('cta_select','cta_manual');
-
-  const judulTitle = toTitleCase(rawJudul);
-  const judulCaps = rawJudul.toUpperCase();
-
-  let arrNames = [], arrPrices = [];
-  document.querySelectorAll('#menu-container .menu-row').forEach(row => {
-    const n = row.querySelector('.p-name').value.trim();
-    const p = row.querySelector('.p-price').value.trim();
-    if (n) arrNames.push(n);
-    if (p) arrPrices.push(p);
-  });
-  const prodNames = arrNames.join(' | ');
-  const prodPrices = arrPrices.join(' | ');
-
-  let contactString = `[WhatsApp Logo] ${wa}`;
-  if (ig) contactString += ` | [Instagram Logo] ${ig}`;
-  if (tt) contactString += ` | [TikTok Logo] ${tt}`;
-
-  const p1 = buildPrompt1(brand, judulTitle, sub, warna_latar, warna_aksen, prodNames, prodPrices, wa, ig, cta, contactString);
-  const p2 = buildPrompt2(brand, judulCaps, sub, warna_latar, warna_aksen, prodNames, prodPrices, cta, contactString);
-  const p3 = buildPrompt3(brand, judulTitle, sub, warna_latar, warna_aksen, prodNames, prodPrices, cta, contactString);
-
-  renderOutputs(p1, p2, p3);
-
-  document.getElementById('output-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-function buildPrompt1(brand, judul, sub, latar, aksen, names, prices, wa, ig, cta, contact) {
-return `[NAMA BRAND : ${brand}]
-
-[NAMA MENU : KIRIM GAMBAR MAKANANNYA, ${names}]
-
-[HARGA : ${prices}]
-
-[NOMOR WA : ${wa}]
-
-[JUDUL UTAMA : ${judul}]
-
-[TEKS PENDUKUNG : ${sub}]
-
-[TOMBOL KETERANGAN : ${cta}]
-
-[AKUN INSTAGRAM : ${ig}]
-
-[WARNA LATAR : ${latar}]
-
-[WARNA AKSEN : ${aksen}]
-
-Create a premium food promo poster in 4:5 aspect ratio using the attached reference image only as a layout and feel guide, not as a text copy guide. Keep the same promotional energy and overall hierarchy, but make the final result feel more minimal, cleaner, and more breathable with clear negative space. Prioritize a polished Instagram-ready ad look that still feels bold and selling.
-
-Use [NAMA MENU] as the hero subject and make it appetizing, realistic, and strongly matched to the food type entered. The food must stay the main focus, but give it more room to breathe so the layout feels cleaner and less crowded. Use photo-realistic food photography style, dynamic plating, and rich texture.
-
-Design direction:
-- bold rounded typography
-- thick white outline on key text
-- orange depth shadow or warm shadow effect
-- premium promo atmosphere
-- subtle smoke / steam / heat effect only where it supports the food
-- light scribble or hand-drawn accent lines, used sparingly
-- clean, modern, high-contrast, eye-catching social media poster
-- overall composition should feel strong, spacious, and premium
-
-Background:
-- use [WARNA LATAR] as the base background tone
-- add a soft gradient, subtle motion texture, and delicate patterning
-- use [WARNA AKSEN] for highlights, badge accents, shadows, and small decorative details
-- maintain excellent readability for all text
-
-Text and hierarchy rules:
-- [NAMA BRAND] appears at the top-left in a clean premium style
-- [JUDUL UTAMA] should appear significantly larger, bolder, and more attention-grabbing. CRITICAL: Use Title Case EXACTLY as written ("${judul}"). NEVER use ALL CAPS.
-- [TEKS PENDUKUNG] sits naturally under or near the headline as a supporting line
-- [HARGA] appears inside a circular badge at the top-right
-- [NAMA MENU] appears larger and visually stronger near the lower-right area
-- [NOMOR WA] appears with the official WhatsApp logo icon followed by the number. DO NOT write "WA:", "WA", or "WhatsApp" in text.
-- [AKUN INSTAGRAM] appears with the official Instagram logo icon. DO NOT write "IG:", "IG", or "Instagram" in text.
-- [TOMBOL KETERANGAN] appears as a rounded call-to-action element
-- If any placeholder is empty, omit that element completely
-
-Quality requirements:
-- sharp, detailed, premium, polished, commercial design
-- strong hierarchy and clear readability
-- breathable spacing with a clean premium feel
-- no extra random text, no watermark, no logo clutter
-- non-human subject only`;
-}
-
-function buildPrompt2(brand, judul, sub, latar, aksen, names, prices, cta, contact) {
-return `Create a professional, high-impact Indonesian commercial advertisement poster. Aspect ratio 4:5 (portrait). This must look like a real agency-made poster — bold, clean, and scroll-stopping.
-
-BRAND: ${brand}
-HEADLINE: ${judul}
-SUB-HEADLINE: ${sub}
-MENU: ${names}
-PRICE: ${prices}
-CTA BUTTON: ${cta}
-CONTACTS FOOTER: ${contact}
-BACKGROUND COLOR: ${latar}
-ACCENT COLOR: ${aksen}
-
---- LAYOUT STRUCTURE (follow strictly) ---
-
-TOP AREA:
-- Brand name [${brand}] placed top-center or top-left in a clean minimal logotype style
-- Small, elegant, not competing with headline
-
-UPPER SECTION:
-- HEADLINE text [${judul}] in massive, bold ALL CAPS typography
-- Maximum 2 lines, ultra-wide letter-spacing, strong vertical impact
-- Use thick white or ${aksen}-colored text with a subtle dark drop shadow for depth
-- Sub-headline [${sub}] directly below in smaller clean sans-serif, centered
-
-MIDDLE SECTION (hero zone):
-- ONE dominant hero subject: a stunning, realistic, highly appetizing photo-quality render of [${names}]
-- Subject fills 50-60% of the poster height, positioned center-to-lower-center
-- Use cinematic studio lighting: soft key light from upper-left, warm rim light from behind
-- Subtle depth-of-field: subject sharp, background softly blurred
-- A single clean price badge: circular or pill shape, ${aksen} colored, showing [${prices}]
-- Badge floats naturally beside the hero subject — NOT overlapping the food
-
-BOTTOM SECTION:
-- ONE clean rounded CTA button: [${cta}] — solid ${aksen} background, white bold text, full-width or centered
-- Below CTA: contact footer in one clean line — ONLY brand logo icons (WhatsApp green icon, Instagram gradient icon, TikTok icon) each immediately followed by the contact text. DO NOT write "WA", "IG", "WhatsApp", or "Instagram" as words.
-
---- DESIGN RULES ---
-BACKGROUND: Use [${latar}] as base. Apply a smooth radial gradient — brighter in center behind hero, darker at edges. Add very subtle texture (grain or soft bokeh) to avoid flat look.
-TYPOGRAPHY: Maximum 2 font styles. Headline = ultra-bold display. Body/contacts = clean geometric sans-serif.
-ELEMENTS: MAXIMUM 6 visual elements total (brand name, headline, hero food, price badge, CTA button, contact footer). NO decorative stickers, NO random floating icons, NO pattern overlays, NO extra badges.
-SPACING: Generous breathing room between each section. Nothing cramped.
-QUALITY: Photo-realistic, commercial print quality, sharp details, premium finish.
-STYLE REFERENCE: Think professional Indonesian agency design — similar to bold food brand posters by Tokopedia, GoFood, or GrabFood. Clean but powerful.
-Non-human subject only.`;
-}
-
-function buildPrompt3(brand, judul, sub, latar, aksen, names, prices, cta, contact) {
-return `[CAMPAIGN DATA PROFILE]
-- Brand Identity: ${brand}
-- Primary Headline: ${judul}
-- Sub-Headline Support: ${sub}
-- Menu Name: ${names} | Promo Price: ${prices}
-- Call-to-Action Text: ${cta}
-- Footer Contacts: ${contact}
-- VISUAL RULE: Render ONLY the graphic brand logo icon immediately followed by the text. DO NOT write "WA:", "IG:", or "Instagram" in text form.
-- Visual Palette: Core Background [${latar}], Accent [${aksen}]
-
-Create a premium, magazine-grade editorial social media advertisement poster in 4:5 aspect ratio. Focus entirely on artistic layouts, high-fashion branding systems, and sophisticated typography.
-
-LAYOUT & COMPOSITION (VERSION 3 - EDITORIAL STYLISH):
-- Use an elegant, fine-art asymmetrical layout structure resembling a professional design presentation cover or luxury magazine spread.
-- Brand header is minimal, sleek, and placed at the absolute top like a premium lifestyle magazine brand mark.
-- Main Headline must use a classy, high-end editorial typeface (modern luxury serif or high-contrast typography) written in Title Case. No chunky all-caps text. Let the headline breathe with wide tracking and generous leading.
-- Product subject features artisan-level plating with a sharp depth-of-field focus effect (creamy blurred background atmosphere) — like a fine dining editorial shoot.
-- Promotional data elements use modern "glassmorphic" blocks or cards with high backdrop blur, elegant transparency, and hairline geometry borders.
-- Social communication fields inside the footer must strictly obey the direct icon-to-text rule.
-- The overall feel must be: upscale restaurant, luxury lifestyle brand, or premium food magazine. Think Kinfolk or Monocle magazine aesthetic.
-- Use generous white space and sophisticated color palette.
-- Typography should feel editorial and intentional — large, confident, spacious.
-- Non-human subject only.`;
-}
-
-function renderOutputs(p1, p2, p3) {
-  const section = document.getElementById('output-section');
-  
-  section.innerHTML = `
-    <div class="stat-row">
-      <div class="stat-item">
-        <div class="stat-num" style="color:var(--accent)">3</div>
-        <div class="stat-lbl">Versi Prompt</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num" style="color:var(--accent2)">${Math.round((p1.length+p2.length+p3.length)/3)}</div>
-        <div class="stat-lbl">Karakter/Prompt</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num" style="color:var(--green)">✓</div>
-        <div class="stat-lbl">Siap Dipakai</div>
-      </div>
-    </div>
-
-    ${buildCard('v1','🔵','V1','Clean Minimalist','Your Perfect Custom Template',p1)}
-    ${buildCard('v2','🟡','V2','3D Center Impact','Hard Selling · Max 2 Lines Headline',p2)}
-    ${buildCard('v3','🟣','V3','Editorial Stylish','Premium Luxury Magazine Cover',p3)}
-  `;
-
-  const ta1 = document.getElementById('ta-v1');
-  const ta2 = document.getElementById('ta-v2');
-  const ta3 = document.getElementById('ta-v3');
-  if (ta1) ta1.value = p1;
-  if (ta2) ta2.value = p2;
-  if (ta3) ta3.value = p3;
-}
-
-function buildCard(id, emoji, vnum, name, desc, prompt) {
-  const vClass = 'v' + vnum.replace('V','');
-  return `
-    <div class="output-card">
-      <div class="output-card-header">
-        <div class="output-label">
-          <div class="version-badge ${vClass}-badge">${emoji}</div>
-          <div>
-            <div class="output-name">${vnum}: ${name}</div>
-            <div class="output-desc">${desc}</div>
-          </div>
-        </div>
-        <button class="copy-btn" onclick="copyPrompt('ta-${id}', this)">Copy Prompt</button>
-      </div>
-      <div class="output-body">
-        <textarea id="ta-${id}" class="prompt-area" readonly></textarea>
-        <div class="char-count" id="cc-${id}"></div>
-      </div>
-    </div>
-  `;
-}
-
-// Init
-window.onload = function() {
-  document.querySelectorAll('select').forEach(sel => {
-    sel.addEventListener('change', function() {
-      const map = {
-        'judul_select': 'cust_judul',
-        'warna_latar': 'cust_latar',
-        'warna_aksen': 'cust_aksen',
-        'cta_select': 'cust_cta'
-      };
-      if (map[this.id]) toggleCustom(this.id, map[this.id]);
-    });
-  });
-};
 </script>
 </body>
 </html>
